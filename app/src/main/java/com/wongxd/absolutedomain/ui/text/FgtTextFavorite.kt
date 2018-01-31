@@ -662,7 +662,9 @@ class FgtTextFavorite : MainTabFragment() {
      */
     private fun initRecycle() {
         adpater = RvAdapter {
-            (parentFragment as FgtFavorite).start(FgtSeeText.newInstance(TextListBean(it.name, it.author, it.preview, it.content), it.siteClass))
+            (parentFragment as FgtFavorite).start(
+                    FgtSeeText.newInstance(TextListBean(it.name, it.author, it.preview, it.content, it.textId), it.siteClass)
+            )
         }
 
         rv_fgt_favorite_text.adapter = adpater
