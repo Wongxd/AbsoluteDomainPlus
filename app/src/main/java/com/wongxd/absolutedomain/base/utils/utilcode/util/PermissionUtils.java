@@ -235,7 +235,6 @@ public final class PermissionUtils {
                             }
                         }
                     });
-                    mOnRationaleListener.rationalePers(mPermissionsDeniedForever);
                     isRationale = true;
                     break;
                 }
@@ -326,9 +325,6 @@ public final class PermissionUtils {
     }
 
     public interface OnRationaleListener {
-
-
-        void rationalePers(List<String> rationalePers);
 
         void rationale(ShouldRequest shouldRequest);
 

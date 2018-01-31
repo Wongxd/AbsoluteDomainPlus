@@ -21,11 +21,9 @@ import com.mikepenz.materialdrawer.model.ExpandableDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.wongxd.absolutedomain.base.kotin.permission.PermissionType
 import com.wongxd.absolutedomain.base.kotin.permission.getPermissions
-import com.wongxd.absolutedomain.base.utils.utilcode.util.IntentUtils
 import com.wongxd.absolutedomain.custom.whatsnew.WhatsNew
 import com.wongxd.absolutedomain.custom.whatsnew.item.item
 import com.wongxd.absolutedomain.custom.whatsnew.item.whatsNew
@@ -337,23 +335,9 @@ class AtyMain : BaseActivity() {
     }
 
     private fun initPermission() {
-        getPermissions(PermissionType.READ_EXTERNAL_STORAGE, PermissionType.WRITE_EXTERNAL_STORAGE) { grantedPers, deniedPers ->
+        getPermissions(PermissionType.READ_EXTERNAL_STORAGE, PermissionType.WRITE_EXTERNAL_STORAGE, isGoSetting = true) { grantedPers, deniedPers ->
 
-            if (deniedPers.isNotEmpty()) {
-                val dlg: SweetAlertDialog = SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE).also {
-                    it.setCancelable(true)
-                    it.titleText = "有如下权限被禁止"
-                    val sb = StringBuilder()
-                    deniedPers.forEach { sb.append("${it.permissionName}\n") }
-                    sb.append("(将会导致应用不能正常运行)")
-                    it.contentText = sb.toString()
-                    it.confirmText = "前往设置给予权限"
-                    it.setConfirmClickListener {
-                        startAty(this, intent = IntentUtils.getAppDetailsSettingsIntent(packageName))
-                    }
-                }
-                dlg.show()
-            }
+
         }
     }
 

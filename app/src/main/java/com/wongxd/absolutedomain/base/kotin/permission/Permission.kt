@@ -3,9 +3,10 @@ package com.wongxd.absolutedomain.base.kotin.permission
 import android.Manifest
 import android.app.Activity
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog
+import com.wongxd.absolutedomain.base.CircularAnim
+import com.wongxd.absolutedomain.base.utils.utilcode.util.IntentUtils
 import com.wongxd.absolutedomain.base.utils.utilcode.util.PermissionUtils
 import com.wongxd.absolutedomain.base.utils.utilcode.util.ScreenUtils
-import com.wongxd.absolutedomain.base.utils.utilcode.util.Utils
 import com.wongxd.absolutedomain.util.TU
 
 /**
@@ -32,56 +33,53 @@ enum class PermissionType(val permission: String, val permissionName: String) {
 /**
  * 获取特定权限
  */
-fun Activity.getPermissions(vararg pers: PermissionType, result: (grantedPers: List<PermissionType>,
-                                                                  deniedPers: List<PermissionType>) -> Unit) {
-    if (Utils.notInit()) Utils.init(application)
-    val deniedPers: MutableList<PermissionType> = ArrayList<PermissionType>()
-    val grantedPers: MutableList<PermissionType> = ArrayList<PermissionType>()
-
+fun Activity.getPermissions(vararg pers: PermissionType, isGoSetting: Boolean = true, result: (grantedPers: List<PermissionType>,
+                                                                                               deniedPers: List<PermissionType>) -> Unit) {
     val perNames = pers.map { it.permission }
     PermissionUtils.singlePermission(*perNames.toTypedArray())
-            .rationale(object : PermissionUtils.OnRationaleListener {
-                override fun rationalePers(rationalePers: MutableList<String>?) {
-                    val dlg: SweetAlertDialog = SweetAlertDialog(this@getPermissions, SweetAlertDialog.WARNING_TYPE).also {
-                        it.setCancelable(true)
-                        it.titleText = "有如下权限被禁止"
-                        val sb = StringBuilder()
-                        pers.filter {
-                            rationalePers?.contains(it.permission) ?: false
-                        }.forEach { sb.append("${it.permissionName}\n") }
-                        sb.append("(将会导致应用不能正常运行)")
-                        it.contentText = sb.toString()
-                        it.confirmText = "前往设置给予权限"
-                        it.setConfirmClickListener { PermissionUtils.openAppSettings() }
-                    }
-                    dlg.show()
-                }
-
-                override fun rationale(shouldRequest: PermissionUtils.OnRationaleListener.ShouldRequest?) {
-                    shouldRequest?.again(true)
-                }
-            })
+            .rationale { it.again(true) }
             .callback(object : PermissionUtils.FullCallback {
                 override fun onGranted(permissionsGranted: MutableList<String>?) {
-
+                    val grantedPers: MutableList<PermissionType> = ArrayList<PermissionType>()
                     permissionsGranted?.let {
-                        deniedPers.addAll(pers.filter { permissionsGranted.contains(it.permission) })
+                        grantedPers.addAll(pers.filter { permissionsGranted.contains(it.permission) })
                     }
 
-                    result.invoke(grantedPers, deniedPers)
+                    result.invoke(grantedPers, emptyList())
                 }
 
                 override fun onDenied(permissionsDeniedForever: MutableList<String>?, permissionsDenied: MutableList<String>?) {
                     // Denied permission without ask never again
-//                    permissionsDeniedForever?.let {
-//                        deniedPers.addAll(pers.filter { permissionsDeniedForever.contains(it.permission) })
-//                    }
+                    val deniedPers: MutableList<PermissionType> = ArrayList<PermissionType>()
+
+                    permissionsDeniedForever?.let {
+                        deniedPers.addAll(pers.filter { permissionsDeniedForever.contains(it.permission) })
+                    }
 
                     permissionsDenied?.let {
                         deniedPers.addAll(pers.filter { permissionsDenied.contains(it.permission) })
                     }
 
-                    result.invoke(grantedPers, deniedPers)
+
+                    if (deniedPers.distinct().isNotEmpty() && isGoSetting) {
+                        val dlg: SweetAlertDialog = SweetAlertDialog(this@getPermissions, SweetAlertDialog.WARNING_TYPE).also {
+                            it.titleText = "有如下权限被禁止"
+                            val sb = StringBuilder()
+                            deniedPers.forEach { sb.append("${it.permissionName}\n") }
+                            sb.append("(将会导致应用不能正常运行)")
+                            it.contentText = sb.toString()
+                            it.confirmText = "前往设置给予权限"
+                            it.setConfirmClickListener {
+
+                                CircularAnim.fullActivity(this@getPermissions, window.decorView)
+                                        .go { startActivity(IntentUtils.getAppDetailsSettingsIntent(packageName)) }
+                            }
+                        }
+                        dlg.setCancelable(false)
+                        dlg.show()
+                    }
+
+                    result.invoke(emptyList(), deniedPers.distinct())
                 }
             })
             .theme { activity -> ScreenUtils.setFullScreen(activity) }
@@ -92,24 +90,9 @@ fun Activity.getPermissions(vararg pers: PermissionType, result: (grantedPers: L
 /**
  * 获取特定权限
  */
-fun Activity.getPermission(per: PermissionType, result: (isGet: Boolean) -> Unit) {
+fun Activity.getPermission(per: PermissionType, isGoSetting: Boolean = true, result: (isGet: Boolean) -> Unit) {
     PermissionUtils.singlePermission(per.permission)
-            .rationale(object : PermissionUtils.OnRationaleListener {
-                override fun rationalePers(rationalePers: MutableList<String>?) {
-                    val dlg: SweetAlertDialog = SweetAlertDialog(this@getPermission, SweetAlertDialog.WARNING_TYPE).also {
-                        it.setCancelable(true)
-                        it.titleText = "有如下权限被禁止"
-                        it.contentText = per.permissionName + "\n(将会导致应用不能正常运行)"
-                        it.confirmText = "前往设置给予权限"
-                        it.setConfirmClickListener { PermissionUtils.openAppSettings() }
-                    }
-                    dlg.show()
-                }
-
-                override fun rationale(shouldRequest: PermissionUtils.OnRationaleListener.ShouldRequest?) {
-                    shouldRequest?.again(true)
-                }
-            })
+            .rationale { it.again(true) }
             .callback(object : PermissionUtils.FullCallback {
                 override fun onGranted(permissionsGranted: MutableList<String>?) {
                     result.invoke(true)
@@ -118,7 +101,26 @@ fun Activity.getPermission(per: PermissionType, result: (isGet: Boolean) -> Unit
                 override fun onDenied(permissionsDeniedForever: MutableList<String>?, permissionsDenied: MutableList<String>?) {
                     // Denied permission without ask never again
                     val perName = per.permissionName
-                    TU.t(perName + " 权限被禁止，无法进行操作")
+                    TU.cT(perName + " 权限被禁止，无法进行操作")
+
+                    if (permissionsDeniedForever != null && permissionsDeniedForever.isNotEmpty() && isGoSetting) {
+                        val dlg: SweetAlertDialog = SweetAlertDialog(this@getPermission, SweetAlertDialog.WARNING_TYPE)
+                                .also {
+                                    it.titleText = "有如下权限被禁止"
+                                    val sb = StringBuilder()
+                                    sb.append("${per.permissionName}\n")
+                                    sb.append("(将会导致应用不能正常运行)")
+                                    it.contentText = sb.toString()
+                                    it.confirmText = "前往设置给予权限"
+                                    it.setConfirmClickListener {
+
+                                        CircularAnim.fullActivity(this@getPermission, window.decorView)
+                                                .go { startActivity(IntentUtils.getAppDetailsSettingsIntent(packageName)) }
+                                    }
+                                }
+                        dlg.setCancelable(false)
+                        dlg.show()
+                    }
                     result.invoke(false)
                 }
             })

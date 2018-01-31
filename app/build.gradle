@@ -9,7 +9,6 @@ apply plugin: 'bugly'
 bugly {
     appId = "1c3475b0ab"
     appKey = "5dada85b-fa95-4104-a792-9149a2d11571"
-    debug = true
 }
 
 android {
