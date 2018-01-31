@@ -20,6 +20,7 @@ object TextTable {
     val PREVIEW = "preview"
     val CONTENT = "content"
     val TIME = "time"
+    val TEXT_ID ="textId"
     val SITE_CLASS = "siteClass"
 }
 
@@ -31,17 +32,20 @@ data class Text(val map: MutableMap<String, Any?>) {
     var preview: String by map
     var content: String by map
     var time: Long by map
+    var textId: String by map
     var siteClass: String by map
 
     constructor() : this(HashMap())
 
-    constructor(id: Long, name: String, author: String, preview: String, time: Long, content: String, siteClass: String) : this(HashMap()) {
+    constructor(id: Long, name: String, author: String, preview: String, time: Long, content: String, textId: String, siteClass: String)
+            : this(HashMap()) {
         this.id = id
         this.name = name
         this.author = author
         this.preview = preview
         this.time = time
         this.content = content
+        this.textId = textId
         this.siteClass = siteClass
     }
 
@@ -58,6 +62,7 @@ val Context.textDB: DatabaseOpenHelper by lazy {
             TextTable.PREVIEW to TEXT,
             TextTable.CONTENT to TEXT,
             TextTable.TIME to INTEGER,
+            TextTable.TEXT_ID to TEXT,
             TextTable.SITE_CLASS to TEXT
     ))
 

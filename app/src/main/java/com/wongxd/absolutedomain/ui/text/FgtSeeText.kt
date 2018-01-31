@@ -49,7 +49,7 @@ class FgtSeeText : BaseBackFragment() {
     val preview: String by lazy { arguments.getString("preview") }
     val content: String by lazy { arguments.getString("content") ?: "" }
     val siteClass: String by lazy { arguments.getString("siteClass") }
-    val textId: String by lazy { arguments.getString("textId") }
+    val textId: String by lazy { arguments.getString("textId") ?: "" }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -65,7 +65,7 @@ class FgtSeeText : BaseBackFragment() {
             site.getContent(textId, { content ->
                 showContent(content ?: "小域 没能加载到内容")
             }, {
-              Tips.showErrorTips(text = it)
+                Tips.showErrorTips(text = it)
             })
         } else
             showContent()
@@ -115,6 +115,7 @@ class FgtSeeText : BaseBackFragment() {
                         text.name = title
                         text.preview = preview
                         text.time = System.currentTimeMillis()
+                        text.textId = textId
                         text.siteClass = siteClass
                         insert(TextTable.TABLE_NAME, *text.map.toVarargArray())
                         tv_left.text = "取消收藏"

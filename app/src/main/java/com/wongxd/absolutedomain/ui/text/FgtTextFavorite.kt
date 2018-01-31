@@ -483,6 +483,10 @@ class FgtTextFavorite : MainTabFragment() {
                         sb.append(list[i].time)
                         sb.append("\",")
 
+                        sb.append("\"textId\":\"")
+                        sb.append(list[i].textId)
+                        sb.append("\",")
+
                         sb.append("\"siteClass\":\"")
                         sb.append(list[i].siteClass)
 
@@ -536,8 +540,9 @@ class FgtTextFavorite : MainTabFragment() {
                     val preview = obj.optString("preview")
                     val time = obj.optString("time").toLong()
                     val content = obj.optString("content")
+                    val textId = obj.optString("textId")
                     val siteClass = obj.optString("siteClass")
-                    restoreToDB(name, author, preview, content, time, siteClass)
+                    restoreToDB(name, author, preview, content, time, textId, siteClass)
                     i++
                 }
 
@@ -557,7 +562,7 @@ class FgtTextFavorite : MainTabFragment() {
      * @param adress
      * @param name
      */
-    private fun restoreToDB(name: String, author: String, preview: String, content: String, time: Long, siteClass: String) {
+    private fun restoreToDB(name: String, author: String, preview: String, content: String, time: Long, textId: String, siteClass: String) {
         activity.textDB.use {
             transaction {
                 val items = select(TextTable.TABLE_NAME).whereSimple(TextTable.NAME + "=?", name)
@@ -569,6 +574,7 @@ class FgtTextFavorite : MainTabFragment() {
                     text.preview = preview
                     text.content = content
                     text.siteClass = siteClass
+                    text.textId = textId
                     text.time = time
 
                     insert(TextTable.TABLE_NAME, *text.map.toVarargArray())
@@ -666,7 +672,7 @@ class FgtTextFavorite : MainTabFragment() {
         rv_fgt_favorite_text.layoutManager = layoutManager
         adpater.setEmptyView(R.layout.item_rv_empty, rv_fgt_favorite_text)
         adpater.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM)
-        rv_fgt_favorite_text.addItemDecoration(DividerItemDecoration(activity,DividerItemDecoration.VERTICAL_LIST))
+        rv_fgt_favorite_text.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL_LIST))
 
 
     }

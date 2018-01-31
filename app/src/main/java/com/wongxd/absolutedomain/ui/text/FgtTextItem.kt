@@ -79,6 +79,7 @@ class FgtTextItem : MainTabFragment() {
                         text.preview = bean.preview
                         text.content = bean.content
                         text.time = System.currentTimeMillis()
+                        text.textId = bean.textId
                         text.siteClass = siteClass.javaClass.name
                         insert(TextTable.TABLE_NAME, *text.map.toVarargArray())
                     } else {
