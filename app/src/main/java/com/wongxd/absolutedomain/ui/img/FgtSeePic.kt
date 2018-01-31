@@ -98,7 +98,7 @@ class FgtSeePic : BaseBackFragment() {
             if (it?.state == 0) {
                 Tips.showErrorTips(text = it.info)
             } else if (it?.state == 1) {
-                if (SPUtils.get(key = IMG_AUTOLOAD_NETX_PAGE, defaultObject = false) as Boolean) {
+                if (SPUtils.get(key = IMG_AUTOLOAD_NETX_PAGE, defaultObject = true) as Boolean) {
                     mVm.addPageList()
 //                    Logger.e("自动加载下一页")
                 }
