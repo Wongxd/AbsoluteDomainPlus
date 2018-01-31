@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">绝对领域</string>
+    <string name="menu_favorite">收藏</string>
+    <string name="menu_download_manager">下载管理</string>
+    <string name="menu_theme">主题</string>
+    <string name="menu_cache">缓存</string>
+    <string name="menu_donate">捐赠</string>
+    <string name="menu_alipay_red">支付宝红包</string>
+    <string name="menu_upgrade">升级</string>
+    <string name="menu_about">关于</string>
+    <string name="menu_tool">工具</string>
+    <string name="menu_rating">评价</string>
+    <string name="menu_setting">设置</string>
+
+
+</resources>

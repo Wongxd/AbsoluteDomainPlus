@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <paths>
+        <external-path path="" name="myFile"></external-path>
+        <!--上述代码中path=”“，是有特殊意义的，它代码根目录，也就是说你可以向其它的应用共享根目录及其子目录下任何一个文件了，
+        如果你将path设为path=”pictures”， 那么它代表着根目录下的pictures目录(eg:/storage/emulated/0/pictures)，
+        如果你向其它应用分享pictures目录范围之外的文件是不行的。-->
+    </paths>
+</resources>

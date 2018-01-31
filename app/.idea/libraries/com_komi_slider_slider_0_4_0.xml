@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.komi.slider:slider-0.4.0">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/slider-0.4.0.aar/5672be1c8640f3e7cb5e335652163f30/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/slider-0.4.0.aar/5672be1c8640f3e7cb5e335652163f30/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.komi.slider/slider/0.4.0/979500564b6c49c6c9535bee7dc0f891d4bbef1/slider-0.4.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

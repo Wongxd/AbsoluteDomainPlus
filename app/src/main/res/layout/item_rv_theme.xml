@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:id="@+id/linear_layout_theme_container"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/iv_theme_image"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_item_theme_uncheck"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tv_theme_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:maxLines="1"
+        android:padding="5dp"
+        android:textSize="16sp" />
+    <TextView
+        android:id="@+id/tv_state_flag"
+        android:text="使用中"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

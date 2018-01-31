@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--切换主题用的自定义颜色  开始-->
+    <attr name="content_board_background_color" format="color" />
+    <attr name="board_background_color" format="color" />
+    <attr name="primary_color" format="color" />
+    <attr name="accent_color" format="color" />
+    <!--切换主题用的自定义颜色  结束-->
+
+    <attr name="selected_color" format="color" />
+
+</resources>
