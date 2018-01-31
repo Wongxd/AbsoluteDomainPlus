@@ -1,1 +1,10 @@
-{version:"0.0.8",data:{"title":"版本更新(0.0.8)","content":"内容描述","extras":{"url":"http://wongxd.github.io"}}}
+{
+    "data": {
+        "content": "全新ui，全新体验。",
+        "extras": {
+            "url": "https://raw.githubusercontent.com/Wongxd/AbsoluteDomainPlus/master/app/apk/3.0.1-release-bugly.apk"
+        },
+        "title": "版本更新(3.0.1)"
+    },
+    "version": "3.0.1"
+}
