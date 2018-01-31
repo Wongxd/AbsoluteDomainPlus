@@ -23,6 +23,7 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.wongxd.absolutedomain.base.kotin.permission.getPermission
+import com.wongxd.absolutedomain.base.utils.utilcode.util.IntentUtils
 import com.wongxd.absolutedomain.custom.whatsnew.WhatsNew
 import com.wongxd.absolutedomain.custom.whatsnew.item.item
 import com.wongxd.absolutedomain.custom.whatsnew.item.whatsNew
@@ -334,8 +335,19 @@ class AtyMain : BaseActivity() {
     }
 
     private fun initPermission() {
-        getPermission(PermissionType.WRITE_EXTERNAL_STORAGE) {}
-        getPermission(PermissionType.READ_EXTERNAL_STORAGE) {}
+        getPermission(PermissionType.WRITE_EXTERNAL_STORAGE) {
+            if (!it) {
+                TU.cT("请求的权限都是保证应用运行的必要权限，请给予。")
+                startAty(this, intent = IntentUtils.getAppDetailsSettingsIntent(packageName))
+            }
+
+        }
+        getPermission(PermissionType.READ_EXTERNAL_STORAGE) {
+            if (!it) {
+                TU.cT("请求的权限都是保证应用运行的必要权限，请给予。")
+                startAty(this, intent = IntentUtils.getAppDetailsSettingsIntent(packageName))
+            }
+        }
         getPermission(PermissionType.READ_PHONE_STATE) {}
     }
 

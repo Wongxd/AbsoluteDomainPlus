@@ -43,7 +43,7 @@ open class BaseActivity : BaseThemeActivity() {
     }
 
 
-    fun startAty(aty: BaseActivity, v: View, intent: Intent) {
+    fun startAty(aty: BaseActivity, v: View=window.decorView, intent: Intent) {
         CircularAnim.fullActivity(aty, v)
                 .go { startActivity(intent) }
     }
