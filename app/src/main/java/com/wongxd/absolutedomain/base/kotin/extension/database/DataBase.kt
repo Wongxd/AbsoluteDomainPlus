@@ -81,7 +81,7 @@ open class DatabaseOpenHelper(
 
     companion object {
         val DB_NAME = App.instance.packageName + ".db"
-        val DB_VERSION = 1
+        val DB_VERSION = 3
     }
 
 
