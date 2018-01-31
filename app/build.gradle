@@ -4,12 +4,19 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'bugly'
 
+bugly {
+    appId = "1c3475b0ab"
+    appKey = "5dada85b-fa95-4104-a792-9149a2d11571"
+    debug = true
+}
 
 android {
     compileSdkVersion 26
     defaultConfig {
         multiDexEnabled true
+        multiDexKeepFile file('multiDexKeep.txt') // keep specific classes
         applicationId "com.wongxd.absolutedomain"
         minSdkVersion 19
         targetSdkVersion 26
@@ -128,6 +135,11 @@ dependencies {
     implementation 'com.squareup.okio:okio:1.13.0'
     implementation 'cn.bmob.android:http-legacy:1.0'
     //end bmob
+
+    //bugly
+    implementation 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+
     implementation 'cn.jiguang.sdk:jpush:3.1.1'
     // 此处以JPush 3.1.1 版本为例。
     implementation 'cn.jiguang.sdk:jcore:1.1.9'

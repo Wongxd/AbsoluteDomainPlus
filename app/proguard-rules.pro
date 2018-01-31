@@ -194,6 +194,9 @@ public *** is*();
 -keep  class com.luomi.**{*;}
 -keep  class com.nostra13.**{*;}
 
+#bugly
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
 
 
 #qq

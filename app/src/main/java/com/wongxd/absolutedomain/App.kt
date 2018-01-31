@@ -3,6 +3,7 @@ package com.wongxd.absolutedomain
 import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
+import android.text.TextUtils
 import cn.bmob.v3.Bmob
 import cn.jpush.android.api.JPushInterface
 import com.luomi.lm.ad.DRAgent
@@ -13,13 +14,17 @@ import com.orhanobut.logger.LogLevel
 import com.orhanobut.logger.Logger
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
+import com.tencent.bugly.crashreport.CrashReport
+import com.tencent.bugly.crashreport.CrashReport.UserStrategy
 import com.wongxd.absolutedomain.base.CircularAnim
-import com.wongxd.absolutedomain.base.exception.CrashHandler
 import com.wongxd.absolutedomain.base.utils.utilcode.util.Utils
 import com.wongxd.absolutedomain.custom.storeHouseHeader.StoreHouseHeader
 import com.wongxd.absolutedomain.data.bean.UserBean
 import com.wongxd.absolutedomain.util.TU
 import okhttp3.OkHttpClient
+import java.io.BufferedReader
+import java.io.FileReader
+import java.io.IOException
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
 
@@ -36,14 +41,45 @@ class App : Application() {
         val BMOB_ID: String = "33c3293abda15ed00bbb74776573e9be"
         val QQ_APP_KEY: String = "6cecc44d7a8f5bc1eb41f4f8a5743a73"
         val QQ_APP_ID = "101447420"
+
+        val BUGLY_APP_ID = "1c3475b0ab"
     }
 
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
-        MultiDex.install(this as Context)
+        MultiDex.install(this)
     }
 
+
+    /**
+     * 获取进程号对应的进程名
+     *
+     * @param pid 进程号
+     * @return 进程名
+     */
+    private fun getProcessName(pid: Int): String {
+        var reader: BufferedReader? = null
+        try {
+            reader = BufferedReader(FileReader("/proc/$pid/cmdline"))
+            var processName: String = reader.readLine()
+            if (!TextUtils.isEmpty(processName)) {
+                processName = processName.trim()
+            }
+            return processName;
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close()
+                }
+            } catch (exception: IOException) {
+                exception.printStackTrace()
+            }
+        }
+        return ""
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -61,9 +97,18 @@ class App : Application() {
         if (BuildConfig.LOG_DEBUG) {
             Logger.init().logLevel(LogLevel.FULL)
         } else {
-            CrashHandler.getInstance().init(this)
+//            CrashHandler.getInstance().init(this)
             Logger.init().logLevel(LogLevel.NONE)
         }
+
+        //bugly
+        // 获取当前进程名
+        val processName = getProcessName(android.os.Process.myPid())
+        // 设置是否为上报进程
+        val strategy = UserStrategy(this)
+        strategy.isUploadProcess = processName.isBlank() || processName == packageName
+
+        CrashReport.initCrashReport(applicationContext, BUGLY_APP_ID, BuildConfig.LOG_DEBUG,strategy)
 
         //smartRefresh
         SmartRefreshLayout.setDefaultRefreshHeaderCreater({ context, layout ->
@@ -77,7 +122,7 @@ class App : Application() {
 
         //广告
 //        if (BuildConfig.LOG_DEBUG)
-              LogUtil.setENABLE_LOGCAT(true)
+        LogUtil.setENABLE_LOGCAT(true)
         DRAgent.getInstance().init(this.applicationContext, "65a3f31939037d2f2329fcf80a1069ca", true)
 
         CircularAnim.init(500, 600, R.drawable.gaki)
