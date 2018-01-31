@@ -31,10 +31,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     fun initPermission() {
-        getPermission(PermissionType.READ_PHONE_STATE) {
-            if (it)
-                showAds()
-        }
+        getPermission(PermissionType.READ_PHONE_STATE, isGoSetting = false) { showAds() }
     }
 
 
