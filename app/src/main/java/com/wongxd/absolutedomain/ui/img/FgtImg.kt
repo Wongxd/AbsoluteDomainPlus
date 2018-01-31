@@ -125,6 +125,8 @@ class FgtImg : MainTabFragment() {
         })
 
         tv_site_switch_fgt_img.text = "切换站点 （${TuViewModel.defaultTuSite.javaClass.simpleName}）"
+
+        bottom_sheet_fgt_img.collapse()
     }
 
 
