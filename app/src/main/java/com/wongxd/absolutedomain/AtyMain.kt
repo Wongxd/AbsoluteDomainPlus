@@ -342,7 +342,7 @@ class AtyMain : BaseActivity() {
             if (deniedPers.isNotEmpty()) {
                 val dlg: SweetAlertDialog = SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE).also {
                     it.setCancelable(true)
-                    it.titleText = "有如下权限被禁止"
+                    it.titleText = "有如下权限被禁止(将会导致应用不能正常运行)"
                     val sb = StringBuilder()
                     deniedPers.forEach { sb.append("${it.permissionName}\n") }
                     it.contentText = sb.toString()
