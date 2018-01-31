@@ -26,9 +26,7 @@ class SplashActivity : AppCompatActivity() {
         if (SPUtils.get(key = IS_SHOW_AD, defaultObject = true) as Boolean) {
             initPermission()
         } else {
-            startActivity(Intent(this@SplashActivity, AtyMain::class.java))
-            overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out)
-            finish()
+            intoAtyMain()
         }
     }
 
@@ -36,11 +34,6 @@ class SplashActivity : AppCompatActivity() {
         getPermission(PermissionType.READ_PHONE_STATE) {
             if (it)
                 showAds()
-            else {
-                startActivity(Intent(this@SplashActivity, AtyMain::class.java))
-                overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out)
-                finish()
-            }
         }
     }
 
@@ -57,9 +50,7 @@ class SplashActivity : AppCompatActivity() {
 
             override fun onError(result: String) {
                 LogUtil.e("luomiAd", ">>>>>>广告展示失败:" + result)
-                startActivity(Intent(this@SplashActivity, AtyMain::class.java))
-                overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out)
-                finish()
+                intoAtyMain()
             }
 
             override fun onClick(result: String) {
@@ -69,9 +60,7 @@ class SplashActivity : AppCompatActivity() {
             override fun OnSuccess(result: String) {
                 LogUtil.e("luomiAd", ">>>广告展示成功:" + result)
                 if (result == "7") {
-                    startActivity(Intent(this@SplashActivity, AtyMain::class.java))
-                    overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out)
-                    finish()
+                    intoAtyMain()
                 }
 
             }
@@ -81,6 +70,12 @@ class SplashActivity : AppCompatActivity() {
                 fl_splash.addView(view)
             }
         })
+    }
+
+    private fun intoAtyMain() {
+        startActivity(Intent(this@SplashActivity, AtyMain::class.java))
+        overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out)
+        finish()
     }
 
 }

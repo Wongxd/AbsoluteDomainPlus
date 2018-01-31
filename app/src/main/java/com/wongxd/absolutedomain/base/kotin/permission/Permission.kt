@@ -61,7 +61,11 @@ fun Activity.getPermissions(vararg pers: PermissionType, isGoSetting: Boolean = 
                     }
 
 
-                    if (deniedPers.distinct().isNotEmpty() && isGoSetting) {
+                    val temp = deniedPers.distinct()
+                    deniedPers.clear()
+                    deniedPers.addAll(temp)
+
+                    if (deniedPers.isNotEmpty() && isGoSetting) {
                         val dlg: SweetAlertDialog = SweetAlertDialog(this@getPermissions, SweetAlertDialog.WARNING_TYPE).also {
                             it.titleText = "有如下权限被禁止"
                             val sb = StringBuilder()
@@ -79,7 +83,7 @@ fun Activity.getPermissions(vararg pers: PermissionType, isGoSetting: Boolean = 
                         dlg.show()
                     }
 
-                    result.invoke(emptyList(), deniedPers.distinct())
+                    result.invoke(emptyList(), deniedPers)
                 }
             })
             .theme { activity -> ScreenUtils.setFullScreen(activity) }
@@ -103,7 +107,7 @@ fun Activity.getPermission(per: PermissionType, isGoSetting: Boolean = true, res
                     val perName = per.permissionName
                     TU.cT(perName + " 权限被禁止，无法进行操作")
 
-                    if (permissionsDeniedForever != null && permissionsDeniedForever.isNotEmpty() && isGoSetting) {
+                    if (isGoSetting) {
                         val dlg: SweetAlertDialog = SweetAlertDialog(this@getPermission, SweetAlertDialog.WARNING_TYPE)
                                 .also {
                                     it.titleText = "有如下权限被禁止"
