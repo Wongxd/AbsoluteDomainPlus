@@ -44,11 +44,12 @@ fun Activity.getPermissions(vararg pers: PermissionType, result: (grantedPers: L
                 override fun rationalePers(rationalePers: MutableList<String>?) {
                     val dlg: SweetAlertDialog = SweetAlertDialog(this@getPermissions, SweetAlertDialog.WARNING_TYPE).also {
                         it.setCancelable(true)
-                        it.titleText = "有如下权限被禁止(将会导致应用不能正常运行)"
+                        it.titleText = "有如下权限被禁止"
                         val sb = StringBuilder()
                         pers.filter {
                             rationalePers?.contains(it.permission) ?: false
                         }.forEach { sb.append("${it.permissionName}\n") }
+                        sb.append("(将会导致应用不能正常运行)")
                         it.contentText = sb.toString()
                         it.confirmText = "前往设置给予权限"
                         it.setConfirmClickListener { PermissionUtils.openAppSettings() }
@@ -97,8 +98,8 @@ fun Activity.getPermission(per: PermissionType, result: (isGet: Boolean) -> Unit
                 override fun rationalePers(rationalePers: MutableList<String>?) {
                     val dlg: SweetAlertDialog = SweetAlertDialog(this@getPermission, SweetAlertDialog.WARNING_TYPE).also {
                         it.setCancelable(true)
-                        it.titleText = "有如下权限被禁止(将会导致应用不能正常运行)"
-                        it.contentText = per.permissionName
+                        it.titleText = "有如下权限被禁止"
+                        it.contentText = per.permissionName + "\n(将会导致应用不能正常运行)"
                         it.confirmText = "前往设置给予权限"
                         it.setConfirmClickListener { PermissionUtils.openAppSettings() }
                     }
