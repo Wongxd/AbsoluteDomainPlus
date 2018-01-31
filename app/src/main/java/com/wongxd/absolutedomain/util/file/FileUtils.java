@@ -8,7 +8,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 import com.wongxd.absolutedomain.R;
-import com.wongxd.absolutedomain.base.utils.subutil.util.Utils;
+import com.wongxd.absolutedomain.base.utils.subutil.util.SubUtils;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -172,7 +172,7 @@ public class FileUtils {
      * @return
      */
     public static String getAppRootDirPath() {
-        return getAppRootDirPath(Utils.getApp());
+        return getAppRootDirPath(SubUtils.getApp());
     }
 
     /**

@@ -15,7 +15,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.wongxd.absolutedomain.base.CircularAnim
 import com.wongxd.absolutedomain.base.exception.CrashHandler
-import com.wongxd.absolutedomain.base.utils.subutil.util.Utils
+import com.wongxd.absolutedomain.base.utils.utilcode.util.Utils
 import com.wongxd.absolutedomain.custom.storeHouseHeader.StoreHouseHeader
 import com.wongxd.absolutedomain.data.bean.UserBean
 import com.wongxd.absolutedomain.util.TU

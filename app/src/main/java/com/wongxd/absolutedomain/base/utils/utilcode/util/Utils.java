@@ -7,6 +7,8 @@ import android.app.Application.ActivityLifecycleCallbacks;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.wongxd.absolutedomain.base.utils.subutil.util.SubUtils;
+
 import java.lang.ref.WeakReference;
 import java.util.LinkedList;
 import java.util.List;
@@ -111,6 +113,7 @@ public final class Utils {
     public static void init(@NonNull final Application app) {
         Utils.sApplication = app;
         app.registerActivityLifecycleCallbacks(mCallbacks);
+        SubUtils.init(app);
     }
 
     /**

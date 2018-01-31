@@ -21,8 +21,10 @@ import com.mikepenz.materialdrawer.model.ExpandableDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
-import com.wongxd.absolutedomain.base.kotin.permission.getPermission
+import com.wongxd.absolutedomain.base.kotin.permission.PermissionType
+import com.wongxd.absolutedomain.base.kotin.permission.getPermissions
 import com.wongxd.absolutedomain.base.utils.utilcode.util.IntentUtils
 import com.wongxd.absolutedomain.custom.whatsnew.WhatsNew
 import com.wongxd.absolutedomain.custom.whatsnew.item.item
@@ -335,20 +337,23 @@ class AtyMain : BaseActivity() {
     }
 
     private fun initPermission() {
-        getPermission(PermissionType.WRITE_EXTERNAL_STORAGE) {
-            if (!it) {
-                TU.cT("请求的权限都是保证应用运行的必要权限，请给予。")
-                startAty(this, intent = IntentUtils.getAppDetailsSettingsIntent(packageName))
-            }
+        getPermissions(PermissionType.READ_EXTERNAL_STORAGE, PermissionType.WRITE_EXTERNAL_STORAGE) { grantedPers, deniedPers ->
 
-        }
-        getPermission(PermissionType.READ_EXTERNAL_STORAGE) {
-            if (!it) {
-                TU.cT("请求的权限都是保证应用运行的必要权限，请给予。")
-                startAty(this, intent = IntentUtils.getAppDetailsSettingsIntent(packageName))
+            if (deniedPers.isNotEmpty()) {
+                val dlg: SweetAlertDialog = SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE).also {
+                    it.setCancelable(true)
+                    it.titleText = "有如下权限被禁止"
+                    val sb = StringBuilder()
+                    deniedPers.forEach { sb.append("${it.permissionName}\n") }
+                    it.contentText = sb.toString()
+                    it.confirmText = "前往设置给予权限"
+                    it.setConfirmClickListener {
+                        startAty(this, intent = IntentUtils.getAppDetailsSettingsIntent(packageName))
+                    }
+                }
+                dlg.show()
             }
         }
-        getPermission(PermissionType.READ_PHONE_STATE) {}
     }
 
     private fun openUrl(url: String) {

@@ -46,12 +46,12 @@ import android.support.annotation.NonNull;
  * 　　　　　　　　　　　　　　丶亅亅丶　　　　　　　　　　　　　　　亅日瓦日
  * 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　丶
  */
-public final class Utils {
+public final class SubUtils {
 
     @SuppressLint("StaticFieldLeak")
     private static Application sApplication;
 
-    private Utils() {
+    private SubUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
@@ -61,7 +61,7 @@ public final class Utils {
      * @param app 应用
      */
     public static void init(@NonNull final Application app) {
-        Utils.sApplication = app;
+        SubUtils.sApplication = app;
     }
 
     /**

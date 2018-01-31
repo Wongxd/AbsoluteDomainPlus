@@ -8,9 +8,9 @@ import com.luomi.lm.ad.ADType
 import com.luomi.lm.ad.DRAgent
 import com.luomi.lm.ad.IAdSuccessBack
 import com.luomi.lm.ad.LogUtil
+import com.wongxd.absolutedomain.base.kotin.permission.PermissionType
 import com.wongxd.absolutedomain.base.kotin.permission.getPermission
 import com.wongxd.absolutedomain.base.utils.utilcode.util.ScreenUtils
-import com.wongxd.absolutedomain.fragmenaction.BaseActivity
 import com.wongxd.absolutedomain.util.SPUtils
 import kotlinx.android.synthetic.main.aty_splash.*
 
@@ -23,19 +23,21 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.aty_splash)
         ScreenUtils.setFullScreen(this)
-        if (SPUtils.get(key = IS_SHOW_AD, defaultObject = true) as Boolean)
+        if (SPUtils.get(key = IS_SHOW_AD, defaultObject = true) as Boolean) {
             initPermission()
-        else {
+        } else {
+            startActivity(Intent(this@SplashActivity, AtyMain::class.java))
             overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out)
             finish()
         }
     }
 
     fun initPermission() {
-        getPermission(BaseActivity.Companion.PermissionType.READ_PHONE_STATE) {
+        getPermission(PermissionType.READ_PHONE_STATE) {
             if (it)
                 showAds()
             else {
+                startActivity(Intent(this@SplashActivity, AtyMain::class.java))
                 overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out)
                 finish()
             }
@@ -54,18 +56,18 @@ class SplashActivity : AppCompatActivity() {
         DRAgent.getInstance().getOpenView(applicationContext, ADType.FULL_SCREEN, true, object : IAdSuccessBack {
 
             override fun onError(result: String) {
-                LogUtil.e("luomiAd",">>>>>>广告展示失败:" + result)
+                LogUtil.e("luomiAd", ">>>>>>广告展示失败:" + result)
                 startActivity(Intent(this@SplashActivity, AtyMain::class.java))
                 overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out)
                 finish()
             }
 
             override fun onClick(result: String) {
-                LogUtil.e("luomiAd",">>>>>广告被点击:" + result)
+                LogUtil.e("luomiAd", ">>>>>广告被点击:" + result)
             }
 
             override fun OnSuccess(result: String) {
-                LogUtil.e("luomiAd",">>>广告展示成功:" + result)
+                LogUtil.e("luomiAd", ">>>广告展示成功:" + result)
                 if (result == "7") {
                     startActivity(Intent(this@SplashActivity, AtyMain::class.java))
                     overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out)
@@ -75,7 +77,7 @@ class SplashActivity : AppCompatActivity() {
             }
 
             override fun OnLoadAd(view: View) {
-                LogUtil.e("luomiAd",">>>>>>广告加载成功")
+                LogUtil.e("luomiAd", ">>>>>>广告加载成功")
                 fl_splash.addView(view)
             }
         })

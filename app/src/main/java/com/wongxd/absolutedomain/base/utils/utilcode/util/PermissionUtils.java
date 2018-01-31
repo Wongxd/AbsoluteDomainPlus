@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,8 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
-import android.view.View;
-import android.view.Window;
 
 import com.wongxd.absolutedomain.base.utils.utilcode.constant.PermissionConstants;
 
@@ -108,7 +105,7 @@ public final class PermissionUtils {
     }
 
     /**
-     * 设置请求权限
+     * 设置请求权限  一次请求一个组
      *
      * @param permissions 要请求的权限
      * @return {@link PermissionUtils}
@@ -126,6 +123,22 @@ public final class PermissionUtils {
                 }
             }
         }
+        sInstance = this;
+    }
+
+    /**
+     * 设置请求权限  单个请求
+     *
+     * @param permissions 要请求的权限
+     * @return {@link PermissionUtils}
+     */
+    public static PermissionUtils singlePermission(String... permissions) {
+        return new PermissionUtils(true, permissions);
+    }
+
+    private PermissionUtils(boolean single, String... permissions) {
+        mPermissions = new LinkedHashSet<>();
+        Collections.addAll(mPermissions, permissions);
         sInstance = this;
     }
 
@@ -222,6 +235,7 @@ public final class PermissionUtils {
                             }
                         }
                     });
+                    mOnRationaleListener.rationalePers(mPermissionsDeniedForever);
                     isRationale = true;
                     break;
                 }
@@ -289,15 +303,7 @@ public final class PermissionUtils {
         protected void onCreate(@Nullable Bundle savedInstanceState) {
             if (sInstance.mThemeCallback != null) {
                 sInstance.mThemeCallback.onActivityCreate(this);
-            } else {
-                Window window = getWindow();
-                window.setBackgroundDrawable(null);
-                int option = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-                window.getDecorView().setSystemUiVisibility(option);
-                window.setStatusBarColor(Color.TRANSPARENT);
             }
-
             super.onCreate(savedInstanceState);
 
             if (sInstance.rationale(this)) {
@@ -306,10 +312,7 @@ public final class PermissionUtils {
             }
             if (sInstance.mPermissionsRequest != null) {
                 int size = sInstance.mPermissionsRequest.size();
-                if (size == 0) {
-                    finish();
-                } else
-                    requestPermissions(sInstance.mPermissionsRequest.toArray(new String[size]), 1);
+                requestPermissions(sInstance.mPermissionsRequest.toArray(new String[size]), 1);
             }
         }
 
@@ -323,6 +326,9 @@ public final class PermissionUtils {
     }
 
     public interface OnRationaleListener {
+
+
+        void rationalePers(List<String> rationalePers);
 
         void rationale(ShouldRequest shouldRequest);
 
