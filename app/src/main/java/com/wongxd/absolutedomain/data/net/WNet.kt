@@ -25,7 +25,7 @@ class WNet {
 
         fun checkVersion() {
             doAsync {
-                val text = URL("https://raw.githubusercontent.com/Wongxd/domainHolder/master/VersionCheck").readText()
+                val text = URL("https://raw.githubusercontent.com/Wongxd/AbsoluteDomainPlus/master/versionHolder/version").readText()
                 //{version:"1.0.0",data:{"title":"版本更新","content":"内容描述","extras":{"url":"http://wongxd.github.io"}}}
                 val json = JSONObject(text)
                 val pkgVersionName = App.instance.packageManager.getPackageInfo(App.instance.packageName, 0).versionName
