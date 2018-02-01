@@ -42,16 +42,15 @@ class FgtSetting : BaseBackFragment() {
 
         val defaultSite: String = SPUtils.get(key = DEFAULT_TU_SITE, defaultObject = "未设置") as String
         val defaultSiteSeting = mGroupListView.createItemView("设置图集默认站点")
-        defaultSiteSeting.setDetailText(defaultSite.replace("com.wongxd.absolutedomain.ui.img.tuSite.",""))
-
+        defaultSiteSeting.setDetailText(defaultSite.replace("com.wongxd.absolutedomain.ui.img.tuSite.", ""))
 
 
         val tuAutoLoad = mGroupListView.createItemView("图集浏览自动加载下一页")
         tuAutoLoad.accessoryType = QMUICommonListItemView.ACCESSORY_TYPE_SWITCH
-        val isAutoLoad =  com.wongxd.absolutedomain.util.SPUtils.get(key = IMG_AUTOLOAD_NETX_PAGE, defaultObject = true) as Boolean
+        val isAutoLoad = SPUtils.get(key = IMG_AUTOLOAD_NETX_PAGE, defaultObject = true) as Boolean
         tuAutoLoad.switch.isChecked = isAutoLoad
         tuAutoLoad.switch.setOnCheckedChangeListener { buttonView, isChecked ->
-            com.wongxd.absolutedomain.util.SPUtils.put(key = IMG_AUTOLOAD_NETX_PAGE, `object` = isChecked)
+            SPUtils.put(key = IMG_AUTOLOAD_NETX_PAGE, `object` = isChecked)
         }
 
 
@@ -75,7 +74,7 @@ class FgtSetting : BaseBackFragment() {
                         activity.selector("选择你要设为默认的站点", titles) { di, i ->
                             val def = sites[i].site.name
                             SPUtils.put(key = DEFAULT_TU_SITE, `object` = def)
-                            TU.cT("当前默认站点为  ${titles[i]}")
+                            TU.cT("当前默认站点为  ${titles[i]}  ，下次启动生效")
                             defaultSiteSeting.setDetailText(titles[i])
                         }
                     })

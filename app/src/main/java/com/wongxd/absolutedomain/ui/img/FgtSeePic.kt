@@ -54,6 +54,7 @@ class FgtSeePic : BaseBackFragment() {
     private lateinit var mVm: SeePicViewModel
     private lateinit var siteClass: String
 
+    private val isAutoLoad by lazy { SPUtils.get(key = IMG_AUTOLOAD_NETX_PAGE, defaultObject = true) as Boolean }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -98,7 +99,7 @@ class FgtSeePic : BaseBackFragment() {
             if (it?.state == 0) {
                 Tips.showErrorTips(text = it.info)
             } else if (it?.state == 1) {
-                if (SPUtils.get(key = IMG_AUTOLOAD_NETX_PAGE, defaultObject = true) as Boolean) {
+                if (isAutoLoad) {
                     mVm.addPageList()
 //                    Logger.e("自动加载下一页")
                 }
