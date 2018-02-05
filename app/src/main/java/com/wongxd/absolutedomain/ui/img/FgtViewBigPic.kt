@@ -126,7 +126,7 @@ class FgtViewBigPic : BaseBackFragment() {
         super.onActivityCreated(savedInstanceState)
         initVp(mRootView)
         fgt = this
-        mVm = ViewModelProviders.of(activity).get(SeePicViewModel::class.java)
+        mVm = ViewModelProviders.of(activity ?: _mActivity).get(SeePicViewModel::class.java)
         mVm.picTotalList.observe(this, Observer<MutableList<String>> { t ->
             if (t != null) {
                 mList.clear()

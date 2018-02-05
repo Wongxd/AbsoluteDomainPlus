@@ -104,12 +104,14 @@ class FgtImg : MainTabFragment() {
                     } else srl_fgt_img.finishLoadmore()
 
                     if (it.state == 0) {
-                        Alerter.create(activity)
-                                .setTitle("get wrong img ---")
-                                .setText(it.info)
-                                .enableSwipeToDismiss()
-                                .setBackgroundColorInt(Color.RED)
-                                .show()
+                        activity?.let { it1 ->
+                            Alerter.create(it1)
+                                    .setTitle("get wrong img ---")
+                                    .setText(it.info)
+                                    .enableSwipeToDismiss()
+                                    .setBackgroundColorInt(Color.RED)
+                                    .show()
+                        }
                     }
                 }
             }
@@ -193,7 +195,7 @@ class FgtImg : MainTabFragment() {
             //收藏
             adapter.data.let {
                 val bean = it[position]
-                activity.tuDB.use {
+                activity?.tuDB?.use {
                     transaction {
                         val items = select(TuTable.TABLE_NAME).whereSimple(TuTable.ADDRESS + "=?", bean.url)
                                 .parseList({ Tu(HashMap(it)) })

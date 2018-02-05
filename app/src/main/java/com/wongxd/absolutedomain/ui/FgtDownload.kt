@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import com.qmuiteam.qmui.widget.QMUITabSegment
 import com.wongxd.absolutedomain.R
 import com.wongxd.absolutedomain.base.kotin.extension.getPrimaryColor
 import com.wongxd.absolutedomain.data.bean.TaskType
 import com.wongxd.absolutedomain.fragmenaction.BaseBackFragment
-import com.qmuiteam.qmui.widget.QMUITabSegment
 import kotlinx.android.synthetic.main.fgt_download.*
 
 /**
@@ -42,7 +42,7 @@ class FgtDownload : BaseBackFragment() {
 
         vp_fgt_download.adapter = VpAdapter(fgts = mFragments)
 
-        val type = arguments.getInt("type", 0)
+        val type = arguments?.getInt("type", 0)
         vp_fgt_download.currentItem = when (type) {
             TaskType.IMG.ordinal -> 1
 
@@ -58,7 +58,7 @@ class FgtDownload : BaseBackFragment() {
         tab_fgt_download.addTab(QMUITabSegment.Tab("视"))
 //        tab_fgt_download.addTab(QMUITabSegment.Tab("文"))
         tab_fgt_download.setHasIndicator(true)
-        tab_fgt_download.setBackgroundColor(activity.getPrimaryColor())
+        activity?.getPrimaryColor()?.let { tab_fgt_download.setBackgroundColor(it) }
         tab_fgt_download.setDefaultSelectedColor(Color.WHITE)
         tab_fgt_download.setIndicatorWidthAdjustContent(true)
         tab_fgt_download.setupWithViewPager(vp_fgt_download, false)

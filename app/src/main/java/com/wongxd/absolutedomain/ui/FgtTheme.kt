@@ -72,7 +72,7 @@ class FgtTheme : BaseBackFragment() {
         super.onDestroyView()
         Logger.e(ConfigUtils.getTheme(activity).toString() + "---" + last.toString())
         if (ConfigUtils.getTheme(activity) != last) {
-            activity.recreate()
+            activity?.recreate()
         }
     }
 

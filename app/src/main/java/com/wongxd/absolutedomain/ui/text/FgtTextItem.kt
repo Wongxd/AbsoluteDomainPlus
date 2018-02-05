@@ -47,7 +47,7 @@ class FgtTextItem : MainTabFragment() {
         }
     }
 
-    private val siteClass: BaseTextSite by lazy { Class.forName(arguments.getString("siteClass")).newInstance() as BaseTextSite }
+    private val siteClass: BaseTextSite by lazy { Class.forName(arguments?.getString("siteClass")).newInstance() as BaseTextSite }
 
     private lateinit var adapter: RvAdapter
 
@@ -67,7 +67,7 @@ class FgtTextItem : MainTabFragment() {
         adapter.setOnItemLongClickListener { adapter1, view, position ->
 
             val bean = adapter.data[position]
-            activity.textDB.use {
+            activity?.textDB?.use {
                 transaction {
                     val items = select(TextTable.TABLE_NAME).whereSimple(TextTable.NAME + "=?", bean.title)
                             .parseList({ Tu(HashMap(it)) })

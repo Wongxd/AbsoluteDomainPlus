@@ -36,13 +36,13 @@ class FgtDownloadItem : MainTabFragment() {
         srl_fgt_download_item.isEnableLoadmore = false
         srl_fgt_download_item.isEnableRefresh = false
 
-        adapter = DownloadAdapter(arguments.getInt("type"), lifecycle)
+        adapter = DownloadAdapter(arguments?.getInt("type") ?: 0, lifecycle)
 
         rv_fgt_download_item.adapter = adapter
         rv_fgt_download_item.layoutManager = LinearLayoutManager(activity)
         rv_fgt_download_item.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL_LIST))
         rv_fgt_download_item.itemAnimator = LandingAnimator()
-        adapter.setEmptyView(R.layout.item_rv_empty,rv_fgt_download_item)
+        adapter.setEmptyView(R.layout.item_rv_empty, rv_fgt_download_item)
 
     }
 

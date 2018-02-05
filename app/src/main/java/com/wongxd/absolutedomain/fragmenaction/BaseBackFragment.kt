@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.wongxd.absolutedomain.base.kotin.extension.getPrimaryColor
 import com.qmuiteam.qmui.widget.QMUITopBar
+import com.wongxd.absolutedomain.base.kotin.extension.getPrimaryColor
 import me.yokeyword.fragmentation_swipeback.SwipeBackFragment
 
 /**
@@ -20,8 +20,8 @@ abstract class BaseBackFragment : SwipeBackFragment() {
 
     protected lateinit var mRootView: View
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mRootView = inflater?.inflate(getLayoutRes(), container, false)!!
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        mRootView = inflater.inflate(getLayoutRes(), container, false)!!
         return attachToSwipeBack(mRootView)
     }
 
@@ -37,7 +37,7 @@ abstract class BaseBackFragment : SwipeBackFragment() {
      */
     @SuppressLint("ResourceType")
     protected fun initTopBar(mTopBar: QMUITopBar, title: String, isHadReturn: Boolean = true) {
-        mTopBar.setBackgroundColor(activity.getPrimaryColor())
+        mTopBar.setBackgroundColor(activity!!.getPrimaryColor())
         mTopBar.setTitle(title)
         if (!isHadReturn) return
         mTopBar.addLeftBackImageButton().setOnClickListener(View.OnClickListener {

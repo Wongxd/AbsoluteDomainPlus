@@ -58,11 +58,11 @@ class FgtSeePic : BaseBackFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val url = arguments.getString("url")
-        val title = arguments.getString("title")
-        siteClass = arguments.getString("siteClass")
+        val url = arguments?.getString("url")
+        val title = arguments?.getString("title")
+        siteClass = arguments?.getString("siteClass")!!
 
-        if (arguments.getBoolean("isFromFavorite", false))
+        if (arguments?.getBoolean("isFromFavorite", false)!!)
             tv_left.visibility = View.GONE
 
         tv_left.text = "收藏"
@@ -72,7 +72,7 @@ class FgtSeePic : BaseBackFragment() {
         mVm = ViewModelProviders.of(_mActivity).get(SeePicViewModel::class.java)
         val onwClass = Class.forName(siteClass)
         val o = onwClass.newInstance()
-        mVm.shouldFirst(url = url, site = o as BaseTuSite)
+        mVm.shouldFirst(url = url?:"", site = o as BaseTuSite)
         initRv()
 
         mVm.title.value = title
@@ -129,7 +129,7 @@ class FgtSeePic : BaseBackFragment() {
         srl_aty_see_pic.setOnRefreshListener { mVm.refreshList() }
         srl_aty_see_pic.setOnLoadmoreListener { mVm.addPageList() }
 
-        doFavoriteLogic(url)
+        doFavoriteLogic(url?:"")
         srl_aty_see_pic.autoRefresh()
     }
 
@@ -187,7 +187,7 @@ class FgtSeePic : BaseBackFragment() {
     private fun doFavoriteLogic(url: String) {
 
 
-        activity.tuDB.use {
+        activity?.tuDB?.use {
 
             val items = select(TuTable.TABLE_NAME).whereSimple(TuTable.ADDRESS + "=?", url)
                     .parseList({ Tu(HashMap(it)) })
@@ -202,7 +202,7 @@ class FgtSeePic : BaseBackFragment() {
 
 
         tv_left.setOnClickListener {
-            activity.tuDB.use {
+            activity?.tuDB?.use {
                 transaction {
                     val items = select(TuTable.TABLE_NAME).whereSimple(TuTable.ADDRESS + "=?", url)
                             .parseList({ Tu(HashMap(it)) })
@@ -211,7 +211,7 @@ class FgtSeePic : BaseBackFragment() {
                         val tu = Tu()
                         tu.address = url
                         tu.name = tv_title.text.toString()
-                        tu.preview = arguments.getString("preview")
+                        tu.preview = arguments?.getString("preview") ?: ""
                         tu.time = System.currentTimeMillis()
                         tu.siteClass = this@FgtSeePic.siteClass
                         insert(TuTable.TABLE_NAME, *tu.map.toVarargArray())

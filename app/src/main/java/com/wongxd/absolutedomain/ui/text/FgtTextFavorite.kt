@@ -454,7 +454,7 @@ class FgtTextFavorite : MainTabFragment() {
      */
     private fun getFavoriteJson(ifGet: (json: String) -> Unit, whenEmpty: (info: String) -> Unit) {
         doAsync {
-            activity.textDB.use {
+            activity?.textDB?.use {
                 val list = select(TextTable.TABLE_NAME).parseList { (Text(HashMap(it))) }
                 if (list.isNotEmpty()) {
 
@@ -563,7 +563,7 @@ class FgtTextFavorite : MainTabFragment() {
      * @param name
      */
     private fun restoreToDB(name: String, author: String, preview: String, content: String, time: Long, textId: String, siteClass: String) {
-        activity.textDB.use {
+        activity?.textDB?.use {
             transaction {
                 val items = select(TextTable.TABLE_NAME).whereSimple(TextTable.NAME + "=?", name)
                         .parseList({ Video(HashMap(it)) })
@@ -589,7 +589,7 @@ class FgtTextFavorite : MainTabFragment() {
      * 从数据库加载数据
      */
     private fun initData() {
-        activity.textDB.use {
+        activity?.textDB?.use {
             val list = select(TextTable.TABLE_NAME).parseList { (Text(HashMap(it))) }
             if (list.isNotEmpty()) {
                 val textList = list.sortedByDescending { it.time }

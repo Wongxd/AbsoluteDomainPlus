@@ -35,7 +35,7 @@ class FgtVideoItem : MainTabFragment() {
         }
     }
 
-    private val siteClass: BaseVideoSite by lazy { Class.forName(arguments.getString("siteClass")).newInstance() as BaseVideoSite }
+    private val siteClass: BaseVideoSite by lazy { Class.forName(arguments?.getString("siteClass")).newInstance() as BaseVideoSite }
 
     private lateinit var adapter: RvVideoAdapter
 
@@ -87,6 +87,7 @@ class FgtVideoItem : MainTabFragment() {
         super.onSupportInvisible()
         JZVideoPlayer.releaseAllVideos()
     }
+
     override fun onBackPressedSupport(): Boolean {
 
         if (JZVideoPlayer.backPress()) {

@@ -71,7 +71,7 @@ class FgtSetting : BaseBackFragment() {
                         if (it == null) return@Observer
                         val sites = it
                         val titles = sites.map { it.title }
-                        activity.selector("选择你要设为默认的站点", titles) { di, i ->
+                        activity?.selector("选择你要设为默认的站点", titles) { di, i ->
                             val def = sites[i].site.name
                             SPUtils.put(key = DEFAULT_TU_SITE, `object` = def)
                             TU.cT("当前默认站点为  ${titles[i]}  ，下次启动生效")

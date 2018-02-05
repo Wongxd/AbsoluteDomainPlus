@@ -30,8 +30,8 @@ class FgtMain : BaseMainFragment() {
 
     private var mBottomBar: BottomBar? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fgt_main, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fgt_main, container, false)
         initView(view)
         EventBusActivityScope.getDefault(_mActivity).register(this)
         return view

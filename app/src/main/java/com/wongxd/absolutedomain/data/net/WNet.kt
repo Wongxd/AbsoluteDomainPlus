@@ -159,6 +159,32 @@ class WNet {
                 }
             })
         }
+
+
+        fun getString(url: String, vararg header: Pair<String, String>, successed: (json: String) -> Unit, failed: (info: String) -> Unit) {
+
+            val request = OkGo.get<String>(url)
+
+            for (p in header) {
+                request.headers(p.first, p.second)
+            }
+
+            request.headers("User-Agent",
+                    "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Mobile Safari/537.36")
+            request.execute(object : StringCallback() {
+                override fun onSuccess(response: Response<String>?) {
+                    response?.body()?.let {
+                        successed.invoke(it)
+                    }
+                            ?: let { onError(Response()) }
+                }
+
+                override fun onError(response: Response<String>?) {
+                    super.onError(response)
+                    failed.invoke("出错  " + response?.message())
+                }
+            })
+        }
     }
 
 }

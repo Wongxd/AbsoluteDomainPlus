@@ -16,6 +16,8 @@ import cn.bmob.v3.listener.UpdateListener
 import cn.bmob.v3.listener.UploadFileListener
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog
+import com.orhanobut.logger.Logger
 import com.wongxd.absolutedomain.App
 import com.wongxd.absolutedomain.R
 import com.wongxd.absolutedomain.base.kotin.extension.database.parseList
@@ -33,8 +35,6 @@ import com.wongxd.absolutedomain.util.SystemUtils
 import com.wongxd.absolutedomain.util.TU
 import com.wongxd.absolutedomain.util.file.DomainFileFilter
 import com.wongxd.absolutedomain.util.file.FileUtils
-import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog
-import com.orhanobut.logger.Logger
 import jp.wasabeef.recyclerview.animators.LandingAnimator
 import kotlinx.android.synthetic.main.fgt_tu_favorite.*
 import loadImg
@@ -454,7 +454,7 @@ class FgtTuFavorite : MainTabFragment() {
      */
     private fun getFavoriteJson(ifGet: (json: String) -> Unit, whenEmpty: (info: String) -> Unit) {
         doAsync {
-            activity.tuDB.use {
+            activity?.tuDB?.use {
                 val list = select(TuTable.TABLE_NAME).parseList { (Tu(HashMap(it))) }
                 if (list.isNotEmpty()) {
 
@@ -553,7 +553,7 @@ class FgtTuFavorite : MainTabFragment() {
      * @param name
      */
     private fun restoreToDB(name: String, adress: String, preview: String, time: Long, siteClass: String) {
-        activity.tuDB.use {
+        activity?.tuDB?.use {
             transaction {
                 val items = select(TuTable.TABLE_NAME).whereSimple(TuTable.ADDRESS + "=?", adress)
                         .parseList({ Tu(HashMap(it)) })
@@ -577,7 +577,7 @@ class FgtTuFavorite : MainTabFragment() {
      * 从数据库加载数据
      */
     private fun initData() {
-        activity.tuDB.use {
+        activity?.tuDB?.use {
             val list = select(TuTable.TABLE_NAME).parseList { (Tu(HashMap(it))) }
             if (list.isNotEmpty()) {
                 val tuList = list.sortedByDescending { it.time }

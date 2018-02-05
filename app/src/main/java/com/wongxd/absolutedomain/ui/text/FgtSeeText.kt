@@ -44,12 +44,12 @@ class FgtSeeText : BaseBackFragment() {
     }
 
 
-    val title: String by lazy { arguments.getString("title") }
-    val author: String by lazy { arguments.getString("author") }
-    val preview: String by lazy { arguments.getString("preview") }
-    val content: String by lazy { arguments.getString("content") ?: "" }
-    val siteClass: String by lazy { arguments.getString("siteClass") }
-    val textId: String by lazy { arguments.getString("textId") ?: "" }
+    val title: String by lazy { arguments?.getString("title") ?: "" }
+    val author: String by lazy { arguments?.getString("author") ?: "" }
+    val preview: String by lazy { arguments?.getString("preview") ?: "" }
+    val content: String by lazy { arguments?.getString("content") ?: "" }
+    val siteClass: String by lazy { arguments?.getString("siteClass") ?: "" }
+    val textId: String by lazy { arguments?.getString("textId") ?: "" }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -89,7 +89,7 @@ class FgtSeeText : BaseBackFragment() {
     private fun doFavoriteLogic(title: String) {
 
 
-        activity.textDB.use {
+        activity?.textDB?.use {
 
             val items = select(TextTable.TABLE_NAME).whereSimple(TextTable.NAME + "=?", title)
                     .parseList({ Text(HashMap(it)) })
@@ -104,7 +104,7 @@ class FgtSeeText : BaseBackFragment() {
 
 
         tv_left.setOnClickListener {
-            activity.textDB.use {
+            activity?.textDB?.use {
                 transaction {
                     val items = select(TextTable.TABLE_NAME).whereSimple(TextTable.NAME + "=?", title)
                             .parseList({ Text(HashMap(it)) })

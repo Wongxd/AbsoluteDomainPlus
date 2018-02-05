@@ -17,6 +17,8 @@ import cn.jzvd.JZVideoPlayer
 import cn.jzvd.JZVideoPlayerStandard
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog
+import com.orhanobut.logger.Logger
 import com.wongxd.absolutedomain.App
 import com.wongxd.absolutedomain.R
 import com.wongxd.absolutedomain.base.kotin.extension.database.parseList
@@ -37,8 +39,6 @@ import com.wongxd.absolutedomain.util.TU
 import com.wongxd.absolutedomain.util.Tips
 import com.wongxd.absolutedomain.util.file.DomainFileFilter
 import com.wongxd.absolutedomain.util.file.FileUtils
-import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog
-import com.orhanobut.logger.Logger
 import jp.wasabeef.recyclerview.animators.LandingAnimator
 import kotlinx.android.synthetic.main.fgt_video_favorite.*
 import loadImg
@@ -463,7 +463,7 @@ abstract class FgtBaseFavoriteItem : MainTabFragment() {
      */
     private fun getFavoriteJson(ifGet: (json: String) -> Unit, whenEmpty: (info: String) -> Unit) {
         doAsync {
-            activity.videoDB.use {
+            activity?.videoDB?.use {
                 val list = select(VideoTable.TABLE_NAME).parseList { (Video(HashMap(it))) }
                 if (list.isNotEmpty()) {
 
@@ -567,7 +567,7 @@ abstract class FgtBaseFavoriteItem : MainTabFragment() {
      * @param name
      */
     private fun restoreToDB(name: String, adress: String, preview: String, duration: String, time: Long, siteClass: String) {
-        activity.videoDB.use {
+        activity?.videoDB?.use {
             transaction {
                 val items = select(VideoTable.TABLE_NAME).whereSimple(VideoTable.ADDRESS + "=?", adress)
                         .parseList({ Video(HashMap(it)) })
@@ -592,7 +592,7 @@ abstract class FgtBaseFavoriteItem : MainTabFragment() {
      * 从数据库加载数据
      */
     private fun initData() {
-        activity.videoDB.use {
+        activity?.videoDB?.use {
             val list = select(VideoTable.TABLE_NAME).parseList { (Video(HashMap(it))) }
             if (list.isNotEmpty()) {
                 val videoList = list.sortedByDescending { it.time }
