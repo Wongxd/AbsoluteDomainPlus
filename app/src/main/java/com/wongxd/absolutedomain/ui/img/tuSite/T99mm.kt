@@ -2,7 +2,6 @@ package com.wongxd.absolutedomain.ui.img.tuSite
 
 import android.text.TextUtils
 import com.lzy.okgo.OkGo
-import com.orhanobut.logger.Logger
 import com.wongxd.absolutedomain.RequestState
 import com.wongxd.absolutedomain.data.bean.ImgTypeBean
 import com.wongxd.absolutedomain.data.bean.TuListBean
@@ -117,7 +116,7 @@ class T99mm : BaseTuSite {
             val res = request.execute()
             if (res.isSuccessful) {
                 res.body()?.string()?.let {
-                    Logger.e("id---$currentId---" + it)
+//                    Logger.e("id---$currentId---" + it)
                     val tags = it.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
                     tags.indices.mapTo(urls) {
                         imgUrl.replace("small/", "")

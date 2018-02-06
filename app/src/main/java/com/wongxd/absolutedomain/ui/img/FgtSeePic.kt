@@ -72,7 +72,7 @@ class FgtSeePic : BaseBackFragment() {
         mVm = ViewModelProviders.of(_mActivity).get(SeePicViewModel::class.java)
         val onwClass = Class.forName(siteClass)
         val o = onwClass.newInstance()
-        mVm.shouldFirst(url = url?:"", site = o as BaseTuSite)
+        mVm.shouldFirst(url = url ?: "", site = o as BaseTuSite)
         initRv()
 
         mVm.title.value = title
@@ -129,7 +129,7 @@ class FgtSeePic : BaseBackFragment() {
         srl_aty_see_pic.setOnRefreshListener { mVm.refreshList() }
         srl_aty_see_pic.setOnLoadmoreListener { mVm.addPageList() }
 
-        doFavoriteLogic(url?:"")
+        doFavoriteLogic(url ?: "")
         srl_aty_see_pic.autoRefresh()
     }
 
@@ -229,4 +229,8 @@ class FgtSeePic : BaseBackFragment() {
     }
 
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mVm.cleanData()
+    }
 }

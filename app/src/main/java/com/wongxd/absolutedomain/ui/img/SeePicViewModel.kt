@@ -27,6 +27,16 @@ class SeePicViewModel : ViewModel() {
         this.url = url
     }
 
+    /**
+     * 在 FgtSeePic 销毁时 重置数据
+     */
+    fun cleanData() {
+        currentPage = 1
+        picList.value?.clear()
+        picTotalList.value?.clear()
+        currentImgPos.value = 0
+    }
+
     fun refreshList() {
         picList.value?.clear()
         picTotalList.value?.clear()
