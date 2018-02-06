@@ -41,6 +41,7 @@ class TuViewModel : ViewModel() {
 
 //        siteList.add(ImgSiteBean( NvShens::class.java.simpleName, NvShens::class.java))
         siteList.add(ImgSiteBean(MZiTu::class.java.simpleName, MZiTu::class.java))
+        siteList.add(ImgSiteBean(T99mm::class.java.simpleName, T99mm::class.java))
         siteList.add(ImgSiteBean(Tu4493::class.java.simpleName, Tu4493::class.java))
         siteList.add(ImgSiteBean(Gank::class.java.simpleName, Gank::class.java))
         siteList.add(ImgSiteBean(Jdlingyu::class.java.simpleName, Jdlingyu::class.java))
