@@ -1,10 +1,10 @@
 {
     "data": {
-        "content": "全新ui，全新体验。",
+        "content": "添加两个新的图集站点。",
         "extras": {
-            "url": "https://raw.githubusercontent.com/Wongxd/AbsoluteDomainPlus/master/app/apk/3.0.1-release-bugly.apk"
+            "url": "https://raw.githubusercontent.com/Wongxd/AbsoluteDomainPlus/master/app/apk/3.0.2-release.apk"
         },
-        "title": "版本更新(3.0.1)"
+        "title": "版本更新(3.0.2)"
     },
-    "version": "3.0.1"
+    "version": "3.0.2"
 }
