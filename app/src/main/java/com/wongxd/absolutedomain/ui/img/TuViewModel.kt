@@ -40,7 +40,6 @@ class TuViewModel : ViewModel() {
 
         val siteList = ArrayList<ImgSiteBean>()
 
-//        siteList.add(ImgSiteBean( NvShens::class.java.simpleName, NvShens::class.java))
         siteList.add(ImgSiteBean(MZiTu::class.java.simpleName, MZiTu::class.java))
         siteList.add(ImgSiteBean(T99mm::class.java.simpleName, T99mm::class.java))
         siteList.add(ImgSiteBean(Tu4493::class.java.simpleName, Tu4493::class.java))
