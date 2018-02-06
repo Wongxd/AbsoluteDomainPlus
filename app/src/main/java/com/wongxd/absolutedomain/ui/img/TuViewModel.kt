@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.wongxd.absolutedomain.DEFAULT_TU_SITE
 import com.wongxd.absolutedomain.RequestState
+import com.wongxd.absolutedomain.base.utils.utilcode.util.CacheUtils
 import com.wongxd.absolutedomain.data.bean.ImgSiteBean
 import com.wongxd.absolutedomain.data.bean.ImgTypeBean
 import com.wongxd.absolutedomain.data.bean.TuListBean
@@ -69,6 +70,8 @@ class TuViewModel : ViewModel() {
 
     fun refreshList() {
         tuList.value?.clear()
+        //刷新时 清除缓存
+        CacheUtils.getInstance("String").remove(url)
         getList(1)
     }
 
