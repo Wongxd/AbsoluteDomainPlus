@@ -2,7 +2,6 @@ package com.wongxd.absolutedomain.ui.img.tuSite
 
 import android.text.TextUtils
 import com.lzy.okgo.OkGo
-import com.orhanobut.logger.Logger
 import com.wongxd.absolutedomain.RequestState
 import com.wongxd.absolutedomain.data.bean.ImgTypeBean
 import com.wongxd.absolutedomain.data.bean.TuListBean
@@ -46,7 +45,7 @@ class MZiTu : BaseTuSite {
         var info = ""
         var state = 0
         try {
-            val request = OkGo.get<String>(url)
+            val request = OkGo.get<String>(originUrl)
             request.headers("Connection", "Keep-Alive")
             request.headers("Referer", "http://www.mzitu.com/")
             val res = request.execute()
@@ -119,8 +118,7 @@ class MZiTu : BaseTuSite {
 
 
     fun parseMeiZiTuList(html: String, page: Int): List<TuListBean> {
-//        val baseResult = BaseResult()
-//        baseResult.setTotalPage(1)
+
         val doc = Jsoup.parse(html)
         val ulPins = doc.getElementById("pins")
         val lis = ulPins.select("li")
@@ -129,43 +127,22 @@ class MZiTu : BaseTuSite {
             var id = ""
 
             val contentUrl = li.select("a").first().attr("href")
-            //meiZiTu.setContentUrl(contentUrl);
             val index = contentUrl.lastIndexOf("/")
             if (index >= 0 && index + 1 < contentUrl.length) {
                 val idStr = contentUrl.substring(index + 1, contentUrl.length)
-//                Logger.e(idStr)
                 if (!TextUtils.isEmpty(idStr) && TextUtils.isDigitsOnly(idStr)) {
                     id = idStr
                 }
             }
             val imageElement = li.selectFirst("img")
-//            Logger.e(imageElement.toString())
             val name = imageElement.attr("alt")
             val thumbUrl = imageElement.attr("data-original")
-            Logger.e(thumbUrl)
-//            val height = Integer.parseInt(imageElement.attr("height"))
-//            val width = Integer.parseInt(imageElement.attr("width"))
             val date = li.getElementsByClass("time").first().text()
-//            val viewCount = li.getElementsByClass("view").first().text()
-//            Logger.e(viewCount)
             val meiZiTu = TuListBean(name, thumbUrl, "http://www.mzitu.com/$id", date)
 //            Logger.e("$name---$thumbUrl---$id---$date")
             meiZiTuList.add(meiZiTu)
         }
-//        Logger.e("size::" + meiZiTuList.size)
-//        if (page == 1) {
-//            val pageElements = doc.getElementsByClass("page-numbers")
-//            if (pageElements != null && pageElements.size > 3) {
-//                val pageStr = pageElements[pageElements.size - 2].text()
-//                Logger.e("totalPage::" + pageStr)
-//                if (!TextUtils.isEmpty(pageStr) && TextUtils.isDigitsOnly(pageStr)) {
-//                    baseResult.setTotalPage(Integer.parseInt(pageStr))
-//                }
-//            }
-//        }
-//
-//        baseResult.setData(meiZiTuList)
-//        return baseResult
+
 
         return meiZiTuList
     }
@@ -192,7 +169,7 @@ class MZiTu : BaseTuSite {
         if (totalPage == 1) {
             imageUrlList.add(imageUrl)
         }
-        Logger.e("妹子图 totalPage--$totalPage")
+//        Logger.e("妹子图 totalPage--$totalPage")
         for (i in 1..totalPage) {
             val tmp: String
             if (i < 10) {
