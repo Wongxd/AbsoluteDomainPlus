@@ -28,3 +28,23 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+
+ext {
+    versionName = "3.0.2"
+    testNum = "0001"
+}
+
+def getReleaseVersionName() {
+    return rootProject.ext.versionName + "-release"
+}
+
+def getTestVersionName() {
+    return String.format("%s.%s", rootProject.ext.versionName,
+            rootProject.ext.testNum)
+}
+
+static int gitVersionCode() {
+    def count = "git rev-list HEAD --count".execute().text.trim()
+    return count.isInteger() ? count.toInteger() : 0
+}
