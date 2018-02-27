@@ -4,14 +4,14 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
-apply plugin: 'bugly'
+//apply plugin: 'bugly'
 
 apply plugin: 'kotlin-kapt'//kapt3插件
 
-bugly {
-    appId = "1c3475b0ab"
-    appKey = "5dada85b-fa95-4104-a792-9149a2d11571"
-}
+//bugly {
+//    appId = "1c3475b0ab"
+//    appKey = "5dada85b-fa95-4104-a792-9149a2d11571"
+//}
 
 android {
     compileSdkVersion 27
@@ -22,7 +22,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 27
         versionCode gitVersionCode()
-        versionName "3.0.2"
+        versionName "3.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
 
@@ -143,9 +143,9 @@ dependencies {
     //end bmob
 
     //bugly
-    implementation 'com.tencent.bugly:crashreport:latest.release'
+//    implementation 'com.tencent.bugly:crashreport:latest.release'
     //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
-    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+//    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
     //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
 
     implementation 'cn.jiguang.sdk:jpush:3.1.1'

@@ -19,7 +19,7 @@ import org.jetbrains.anko.uiThread
 class TuViewModel : ViewModel() {
 
     companion object {
-        var defaultTuSite: BaseTuSite = Tu4493()
+        var defaultTuSite: BaseTuSite = Gank()
     }
 
 
@@ -33,7 +33,7 @@ class TuViewModel : ViewModel() {
     lateinit var url: String
 
     init {
-        val site = SPUtils.get(key = DEFAULT_TU_SITE, defaultObject = Tu4493::class.java.name) as String
+        val site = SPUtils.get(key = DEFAULT_TU_SITE, defaultObject = Gank::class.java.name) as String
         defaultTuSite = Class.forName(site).newInstance() as BaseTuSite
 
         initSite()

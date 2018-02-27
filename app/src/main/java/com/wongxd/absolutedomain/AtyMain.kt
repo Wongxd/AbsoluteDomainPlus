@@ -85,16 +85,21 @@ class AtyMain : BaseActivity() {
 
         if (!BuildConfig.DEBUG && SPUtils.get(key = IS_SHOW_ACTIVITY, defaultObject = true) as Boolean) {
             val c = Calendar.getInstance()//
-//                    val mYear = c.get(Calendar.YEAR) // 获取当前年份
-//                    val mMonth = c.get(Calendar.MONTH) + 1// 获取当前月份
+            val mYear = c.get(Calendar.YEAR) // 获取当前年份
+            val mMonth = c.get(Calendar.MONTH) + 1// 获取当前月份
             val mDay = c.get(Calendar.DAY_OF_MONTH)// 获取当日期
 //                    val mWay = c.get(Calendar.DAY_OF_WEEK)// 获取当前日期的星期
-//                    val mHour = c.get(Calendar.HOUR_OF_DAY)//时
+            val mHour = c.get(Calendar.HOUR_OF_DAY)//时
 //                    val mMinute = c.get(Calendar.MINUTE)//分
             val spDay = SPUtils.get(key = "alipayRedCount", defaultObject = 0)
 
-            if (spDay != mDay)
-                getRedPacket()
+            if (spDay != mDay) {
+                if ((mMonth <= 3 && mYear == 2018))
+                    getRedPacket()
+                if (mHour > 21 || mHour < 8) {
+                    WNet.checkVersion()
+                }
+            }
         }
     }
 

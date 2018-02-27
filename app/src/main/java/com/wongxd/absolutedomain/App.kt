@@ -14,8 +14,6 @@ import com.orhanobut.logger.LogLevel
 import com.orhanobut.logger.Logger
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
-import com.tencent.bugly.crashreport.CrashReport
-import com.tencent.bugly.crashreport.CrashReport.UserStrategy
 import com.wongxd.absolutedomain.base.CircularAnim
 import com.wongxd.absolutedomain.base.utils.utilcode.util.Utils
 import com.wongxd.absolutedomain.custom.storeHouseHeader.StoreHouseHeader
@@ -103,12 +101,14 @@ class App : Application() {
 
         //bugly
         // 获取当前进程名
-        val processName = getProcessName(android.os.Process.myPid())
+//        val processName = getProcessName(android.os.Process.myPid())
         // 设置是否为上报进程
-        val strategy = UserStrategy(this)
-        strategy.isUploadProcess = processName.isBlank() || processName == packageName
+//        val strategy = UserStrategy(this)
+//        strategy.isUploadProcess = processName.isBlank() || processName == packageName
 
-        CrashReport.initCrashReport(applicationContext, BUGLY_APP_ID, BuildConfig.LOG_DEBUG,strategy)
+//        CrashReport.initCrashReport(applicationContext, BUGLY_APP_ID, BuildConfig.LOG_DEBUG,strategy)
+
+//        CrashReport.initCrashReport(applicationContext, BUGLY_APP_ID, BuildConfig.LOG_DEBUG)
 
         //smartRefresh
         SmartRefreshLayout.setDefaultRefreshHeaderCreater({ context, layout ->
