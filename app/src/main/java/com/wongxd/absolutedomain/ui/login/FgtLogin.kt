@@ -15,25 +15,25 @@ import cn.bmob.v3.listener.LogInListener
 import cn.bmob.v3.listener.OtherLoginListener
 import cn.bmob.v3.listener.SaveListener
 import cn.bmob.v3.listener.UpdateListener
+import com.github.wongxd.core_lib.CoreApp
+import com.github.wongxd.core_lib.base.utils.utilcode.util.BarUtils
+import com.github.wongxd.core_lib.base.utils.utilcode.util.KeyboardUtils
+import com.github.wongxd.core_lib.data.bean.UserBean
+import com.github.wongxd.core_lib.fragmenaction.BaseBackFragment
+import com.github.wongxd.core_lib.util.SystemUtils
+import com.github.wongxd.core_lib.util.TU
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog
 import com.orhanobut.logger.Logger
 import com.tencent.connect.UserInfo
 import com.tencent.tauth.IUiListener
 import com.tencent.tauth.Tencent
 import com.tencent.tauth.UiError
-import com.wongxd.absolutedomain.App
 import com.wongxd.absolutedomain.R
-import com.wongxd.absolutedomain.base.utils.utilcode.util.BarUtils
-import com.wongxd.absolutedomain.base.utils.utilcode.util.KeyboardUtils
-import com.wongxd.absolutedomain.data.bean.UserBean
 import com.wongxd.absolutedomain.event.LogStateChangeEvent
-import com.wongxd.absolutedomain.fragmenaction.BaseBackFragment
-import com.wongxd.absolutedomain.util.SystemUtils
-import com.wongxd.absolutedomain.util.TU
 import kotlinx.android.synthetic.main.fgt_login.*
 import kotlinx.android.synthetic.main.layout_signin.*
 import kotlinx.android.synthetic.main.layout_signup.*
-import me.yokeyword.eventbusactivityscope.EventBusActivityScope
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import org.json.JSONObject
@@ -148,8 +148,8 @@ class FgtLogin : BaseBackFragment() {
             override fun done(p0: UserBean?, p1: BmobException?) {
                 if (p0 != null) {
                     pDialog.titleText = "你好---${p0.nickName ?: userName}"
-                    App.user = p0
-                    EventBusActivityScope.getDefault(_mActivity).post(LogStateChangeEvent())
+                    CoreApp.user = p0
+                    EventBus.getDefault().post(LogStateChangeEvent())
                     pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
                     pDialog.setConfirmClickListener {
                         pDialog.dismissWithAnimation()
@@ -230,7 +230,7 @@ class FgtLogin : BaseBackFragment() {
 
 
     //########################qq登录#######################################
-    private val mTencent: Tencent by lazy { Tencent.createInstance(App.QQ_APP_ID, activity) }
+    private val mTencent: Tencent by lazy { Tencent.createInstance(CoreApp.QQ_APP_ID, activity) }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -352,8 +352,8 @@ class FgtLogin : BaseBackFragment() {
                                     newUser.update(context, object : UpdateListener() {
                                         override fun onSuccess() {
                                             uiThread {
-                                                App.user = (BmobUser.getCurrentUser(activity, UserBean::class.java))
-                                                EventBusActivityScope.getDefault(_mActivity).post(LogStateChangeEvent())
+                                                CoreApp.user = (BmobUser.getCurrentUser(activity, UserBean::class.java))
+                                                EventBus.getDefault().post(LogStateChangeEvent())
                                                 pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
                                                 pDialog.titleText = "你好---${newUser.nickName}"
                                                 pDialog.setConfirmClickListener {
@@ -374,8 +374,8 @@ class FgtLogin : BaseBackFragment() {
                                 } else {
                                     uiThread {
 
-                                        App.user = (BmobUser.getCurrentUser(activity, UserBean::class.java))
-                                        EventBusActivityScope.getDefault(_mActivity).post(LogStateChangeEvent())
+                                        CoreApp.user = (BmobUser.getCurrentUser(activity, UserBean::class.java))
+                                        EventBus.getDefault().post(LogStateChangeEvent())
                                         pDialog.titleText = "你好---${newUser.nickName}"
                                         pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
                                         pDialog.setConfirmClickListener {

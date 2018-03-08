@@ -59,7 +59,7 @@
             android:screenOrientation="portrait" />
         <!--android:taskAffinity="com.wongxd.absolutedomain.base.utils.utilcode.util.PermissionUtils$PermissionActivity"-->
         <activity
-            android:name=".base.utils.utilcode.util.PermissionUtils$PermissionActivity"
+            android:name="com.github.wongxd.core_lib.base.utils.utilcode.util.PermissionUtils$PermissionActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
 

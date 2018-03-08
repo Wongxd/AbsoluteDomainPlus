@@ -2,11 +2,11 @@ package com.wongxd.absolutedomain.ui
 
 import android.os.Bundle
 import com.wongxd.absolutedomain.R
-import com.wongxd.absolutedomain.data.bean.TaskType
-import com.wongxd.absolutedomain.fragmenaction.BaseBackFragment
-import com.wongxd.absolutedomain.ui.img.FgtTuFavorite
-import com.wongxd.absolutedomain.ui.text.FgtTextFavorite
-import com.wongxd.absolutedomain.ui.video.FgtVideoFavorite
+import com.github.wongxd.core_lib.data.bean.TaskType
+import com.github.wongxd.core_lib.fragmenaction.BaseBackFragment
+import com.github.wongxd.img_lib.img.FgtTuFavorite
+import com.github.wongxd.text_lib.text.FgtTextFavorite
+import com.github.wongxd.video_lib.video.FgtVideoFavorite
 import com.qmuiteam.qmui.widget.QMUITabSegment
 import kotlinx.android.synthetic.main.fgt_favorite.*
 import me.yokeyword.fragmentation.SupportFragment

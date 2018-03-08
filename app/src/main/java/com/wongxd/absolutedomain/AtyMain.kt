@@ -14,6 +14,25 @@ import android.widget.ImageView
 import android.widget.TextView
 import cn.bmob.v3.BmobUser
 import cn.jzvd.JZVideoPlayer
+import com.github.wongxd.core_lib.CoreApp
+import com.github.wongxd.core_lib.IS_SHOW_ACTIVITY
+import com.github.wongxd.core_lib.IS_SHOW_AD
+import com.github.wongxd.core_lib.base.kotin.permission.PermissionType
+import com.github.wongxd.core_lib.base.kotin.permission.getPermissions
+import com.github.wongxd.core_lib.custom.whatsnew.WhatsNew
+import com.github.wongxd.core_lib.custom.whatsnew.item.item
+import com.github.wongxd.core_lib.custom.whatsnew.item.whatsNew
+import com.github.wongxd.core_lib.custom.whatsnew.util.PresentationOption
+import com.github.wongxd.core_lib.data.bean.TaskType
+import com.github.wongxd.core_lib.data.bean.UserBean
+import com.github.wongxd.core_lib.data.net.WNet
+import com.github.wongxd.core_lib.fragmenaction.BaseActivity
+import com.github.wongxd.core_lib.util.AlipayUtil
+import com.github.wongxd.core_lib.util.SPUtils
+import com.github.wongxd.core_lib.util.TU
+import com.github.wongxd.core_lib.util.apk.UpdateUtil
+import com.github.wongxd.core_lib.util.cache.DataCleanManager
+import com.github.wongxd.core_lib.util.cache.GlideCatchUtil
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
@@ -22,34 +41,19 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
-import com.wongxd.absolutedomain.base.kotin.permission.PermissionType
-import com.wongxd.absolutedomain.base.kotin.permission.getPermissions
-import com.wongxd.absolutedomain.custom.whatsnew.WhatsNew
-import com.wongxd.absolutedomain.custom.whatsnew.item.item
-import com.wongxd.absolutedomain.custom.whatsnew.item.whatsNew
-import com.wongxd.absolutedomain.custom.whatsnew.util.PresentationOption
-import com.wongxd.absolutedomain.data.bean.TaskType
-import com.wongxd.absolutedomain.data.bean.UserBean
-import com.wongxd.absolutedomain.data.net.WNet
 import com.wongxd.absolutedomain.event.LockDrawerEvent
 import com.wongxd.absolutedomain.event.LogStateChangeEvent
 import com.wongxd.absolutedomain.event.ToggleDrawerEvent
-import com.wongxd.absolutedomain.fragmenaction.BaseActivity
+import com.wongxd.absolutedomain.receiver.MyPushReceiver
 import com.wongxd.absolutedomain.ui.*
 import com.wongxd.absolutedomain.ui.login.FgtLogin
 import com.wongxd.absolutedomain.ui.user.FgtUser
-import com.wongxd.absolutedomain.util.AlipayUtil
-import com.wongxd.absolutedomain.util.SPUtils
-import com.wongxd.absolutedomain.util.TU
-import com.wongxd.absolutedomain.util.apk.UpdateUtil
-import com.wongxd.absolutedomain.util.cache.DataCleanManager
-import com.wongxd.absolutedomain.util.cache.GlideCatchUtil
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import kotlinx.android.synthetic.main.layout_w_toolbar.*
 import loadHeader
-import me.yokeyword.eventbusactivityscope.EventBusActivityScope
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
 import me.yokeyword.fragmentation.anim.FragmentAnimator
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.notificationManager
 import org.json.JSONObject
@@ -66,7 +70,7 @@ class AtyMain : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.aty_main)
 
-        EventBusActivityScope.getDefault(this).register(this)
+        EventBus.getDefault().register(this)
 
 
 
@@ -80,7 +84,7 @@ class AtyMain : BaseActivity() {
         initDrawer()
 
 
-        App.user = BmobUser.getCurrentUser(this, UserBean::class.java)
+        CoreApp.user = BmobUser.getCurrentUser(this, UserBean::class.java)
         updateDrawerHeader()
 
         if (!BuildConfig.DEBUG && SPUtils.get(key = IS_SHOW_ACTIVITY, defaultObject = true) as Boolean) {
@@ -97,7 +101,7 @@ class AtyMain : BaseActivity() {
                 if ((mMonth <= 3 && mYear == 2018))
                     getRedPacket()
                 if (mHour > 21 || mHour < 8) {
-                    WNet.checkVersion()
+                    WNet.checkVersion(App.instance.getPkgVersionName(), MyPushReceiver.NEW_VERSION_ACTION, application)
                 }
             }
         }
@@ -293,7 +297,7 @@ class AtyMain : BaseActivity() {
                             }
 
                             Menu.MENU_UPGRADE.id -> {
-                                WNet.checkVersion()
+                                WNet.checkVersion(App.instance.getPkgVersionName(), MyPushReceiver.NEW_VERSION_ACTION, application)
 
                             }
 
@@ -314,7 +318,7 @@ class AtyMain : BaseActivity() {
                 .build()
 
         drawer.header.setOnClickListener {
-            if (App.user == null) {
+            if (CoreApp.user == null) {
                 start(FgtLogin())
             } else {
                 start(FgtUser())
@@ -331,7 +335,7 @@ class AtyMain : BaseActivity() {
         userImg.loadHeader(R.drawable.ic_user)
         userName.text = "未登录用户"
 
-        App.user?.let {
+        CoreApp.user?.let {
             userImg.loadHeader(R.drawable.login_suc)
             userName.text = it.nickName
             SPUtils.put(key = IS_SHOW_AD, `object` = it.showAd ?: true)
@@ -489,6 +493,7 @@ class AtyMain : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        EventBusActivityScope.getDefault(this).unregister(this)
+        EventBus.getDefault().unregister(this)
     }
+
 }

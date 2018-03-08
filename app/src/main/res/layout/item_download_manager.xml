@@ -13,7 +13,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:padding="5dp"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@drawable/icon" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -71,7 +71,7 @@
 
         </RelativeLayout>
 
-        <com.wongxd.absolutedomain.custom.NumberProgressBar
+        <com.github.wongxd.core_lib.custom.NumberProgressBar
             android:id="@+id/pbProgress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

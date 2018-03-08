@@ -8,11 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.github.wongxd.core_lib.data.bean.ThemeBean
 import com.orhanobut.logger.Logger
 import com.wongxd.absolutedomain.R
-import com.wongxd.absolutedomain.data.bean.ThemeBean
-import com.wongxd.absolutedomain.fragmenaction.BaseBackFragment
-import com.wongxd.absolutedomain.util.ConfigUtils
+import com.github.wongxd.core_lib.fragmenaction.BaseBackFragment
+import com.github.wongxd.core_lib.util.ConfigUtils
 import kotlinx.android.synthetic.main.fgt_theme.*
 import kotlinx.android.synthetic.main.layout_w_toolbar.*
 

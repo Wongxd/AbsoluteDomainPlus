@@ -10,11 +10,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.wongxd.absolutedomain.R
-import com.wongxd.absolutedomain.base.utils.utilcode.util.ActivityUtils
-import com.wongxd.absolutedomain.custom.NumberProgressBar
-import com.wongxd.absolutedomain.data.bean.TaskType
-import com.wongxd.absolutedomain.util.Tips
+import com.github.wongxd.core_lib.base.utils.utilcode.util.ActivityUtils
+import com.github.wongxd.core_lib.custom.NumberProgressBar
+import com.github.wongxd.core_lib.data.bean.TaskType
+import com.github.wongxd.core_lib.util.Tips
 import com.lzy.okgo.db.DownloadManager
 import com.lzy.okgo.model.Progress
 import com.lzy.okserver.OkDownload
@@ -22,6 +21,7 @@ import com.lzy.okserver.download.DownloadListener
 import com.lzy.okserver.download.DownloadTask
 import com.orhanobut.logger.Logger
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+import com.wongxd.absolutedomain.R
 import loadImg
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread

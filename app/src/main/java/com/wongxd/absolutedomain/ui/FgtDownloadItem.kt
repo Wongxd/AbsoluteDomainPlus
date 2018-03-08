@@ -3,9 +3,9 @@ package com.wongxd.absolutedomain.ui
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.github.wongxd.core_lib.base.decorator.DividerItemDecoration
+import com.github.wongxd.core_lib.fragmenaction.MainTabFragment
 import com.wongxd.absolutedomain.R
-import com.wongxd.absolutedomain.base.decorator.DividerItemDecoration
-import com.wongxd.absolutedomain.fragmenaction.MainTabFragment
 import jp.wasabeef.recyclerview.animators.LandingAnimator
 import kotlinx.android.synthetic.main.fgt_download_item.*
 

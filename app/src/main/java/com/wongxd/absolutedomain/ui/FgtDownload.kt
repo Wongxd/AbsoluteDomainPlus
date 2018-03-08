@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import com.github.wongxd.core_lib.base.kotin.extension.getPrimaryColor
+import com.github.wongxd.core_lib.data.bean.TaskType
+import com.github.wongxd.core_lib.fragmenaction.BaseBackFragment
 import com.qmuiteam.qmui.widget.QMUITabSegment
 import com.wongxd.absolutedomain.R
-import com.wongxd.absolutedomain.base.kotin.extension.getPrimaryColor
-import com.wongxd.absolutedomain.data.bean.TaskType
-import com.wongxd.absolutedomain.fragmenaction.BaseBackFragment
 import kotlinx.android.synthetic.main.fgt_download.*
 
 /**

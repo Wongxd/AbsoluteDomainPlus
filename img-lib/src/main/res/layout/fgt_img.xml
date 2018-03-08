@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fl_fgt_img"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/srl_fgt_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="40dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_fgt_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <com.github.wongxd.core_lib.custom.bottomSheetLayout.BottomSheetLayout
+        android:id="@+id/bottom_sheet_fgt_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:collapsedHeight="40dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp">
+
+                <com.github.wongxd.core_lib.custom.MarqueeTextview
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
+                    android:id="@+id/tv_site_switch_fgt_img"
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="切换站点"
+                    android:textColor="?attr/primary_color" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/app_bg" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_site_fgt_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </com.github.wongxd.core_lib.custom.bottomSheetLayout.BottomSheetLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_fgt_img"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="100dp"
+        app:tabIndicatorColor="?attr/primary_color"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="?attr/primary_color" />
+</FrameLayout>

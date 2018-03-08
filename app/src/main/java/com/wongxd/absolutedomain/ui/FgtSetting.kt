@@ -3,18 +3,20 @@ package com.wongxd.absolutedomain.ui
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import com.github.wongxd.core_lib.DEFAULT_TU_SITE
+import com.github.wongxd.core_lib.IMG_AUTOLOAD_NETX_PAGE
+import com.github.wongxd.core_lib.data.net.WNet
+import com.github.wongxd.core_lib.fragmenaction.BaseBackFragment
+import com.github.wongxd.core_lib.util.SPUtils
+import com.github.wongxd.core_lib.util.TU
+import com.github.wongxd.core_lib.util.apk.PackageUtil
+import com.github.wongxd.img_lib.data.bean.ImgSiteBean
+import com.github.wongxd.img_lib.img.TuViewModel
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
-import com.wongxd.absolutedomain.DEFAULT_TU_SITE
-import com.wongxd.absolutedomain.IMG_AUTOLOAD_NETX_PAGE
+import com.wongxd.absolutedomain.App
 import com.wongxd.absolutedomain.R
-import com.wongxd.absolutedomain.data.bean.ImgSiteBean
-import com.wongxd.absolutedomain.data.net.WNet
-import com.wongxd.absolutedomain.fragmenaction.BaseBackFragment
-import com.wongxd.absolutedomain.ui.img.TuViewModel
-import com.wongxd.absolutedomain.util.SPUtils
-import com.wongxd.absolutedomain.util.TU
-import com.wongxd.absolutedomain.util.apk.PackageUtil
+import com.wongxd.absolutedomain.receiver.MyPushReceiver
 import kotlinx.android.synthetic.main.fgt_setting.*
 import org.jetbrains.anko.selector
 
@@ -42,7 +44,7 @@ class FgtSetting : BaseBackFragment() {
 
         val defaultSite: String = SPUtils.get(key = DEFAULT_TU_SITE, defaultObject = "未设置") as String
         val defaultSiteSeting = mGroupListView.createItemView("设置图集默认站点")
-        defaultSiteSeting.setDetailText(defaultSite.replace("com.wongxd.absolutedomain.ui.img.tuSite.", ""))
+        defaultSiteSeting.setDetailText(defaultSite.replace("com.github.wongxd.img_lib.img.tuSite.", ""))
 
 
         val tuAutoLoad = mGroupListView.createItemView("图集浏览自动加载下一页")
@@ -58,7 +60,7 @@ class FgtSetting : BaseBackFragment() {
 
         QMUIGroupListView.newSection(context)
                 .addItemView(versionCheck, {
-                    WNet.checkVersion()
+                    WNet.checkVersion(App.instance.getPkgVersionName(), MyPushReceiver.NEW_VERSION_ACTION, _mActivity)
                 })
                 .addTo(mGroupListView)
 

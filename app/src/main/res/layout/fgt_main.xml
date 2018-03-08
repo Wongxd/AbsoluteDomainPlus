@@ -25,7 +25,7 @@
         android:layout_height="2dp"
         android:layout_gravity="bottom"
         android:background="@drawable/actionbar_shadow_up" />
-    <com.wongxd.absolutedomain.custom.view.BottomBar
+    <com.github.wongxd.core_lib.custom.view.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottombar_wechat_height"

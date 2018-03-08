@@ -5,18 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.wongxd.absolutedomain.custom.view.BottomBar
-import com.wongxd.absolutedomain.custom.view.BottomBarTab
+import com.github.wongxd.core_lib.custom.view.BottomBar
+import com.github.wongxd.core_lib.custom.view.BottomBarTab
+import com.github.wongxd.core_lib.fragmenaction.BaseMainFragment
+import com.github.wongxd.img_lib.img.FgtImg
+import com.github.wongxd.text_lib.text.FgtText
+import com.github.wongxd.video_lib.video.FgtVideo
+import com.wongxd.absolutedomain.event.CCEvent
 import com.wongxd.absolutedomain.event.LockDrawerEvent
 import com.wongxd.absolutedomain.event.TabSelectedEvent
 import com.wongxd.absolutedomain.event.ToggleDrawerEvent
-import com.wongxd.absolutedomain.fragmenaction.BaseMainFragment
-import com.wongxd.absolutedomain.ui.img.FgtImg
-import com.wongxd.absolutedomain.ui.text.FgtText
-import com.wongxd.absolutedomain.ui.video.FgtVideo
-import me.yokeyword.eventbusactivityscope.EventBusActivityScope
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
 /**
@@ -33,7 +34,7 @@ class FgtMain : BaseMainFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fgt_main, container, false)
         initView(view)
-        EventBusActivityScope.getDefault(_mActivity).register(this)
+        EventBus.getDefault().register(this)
         return view
     }
 
@@ -49,6 +50,27 @@ class FgtMain : BaseMainFragment() {
 
         val firstFragment = findChildFragment(FgtImg::class.java)
         if (firstFragment == null) {
+
+            //测试下 通过 cc 拿 fgt 实例
+//            CC.obtainBuilder("cImg")
+//                    .setActionName(ComponentImgAction.Into)
+//                    .build().call().getDataItem<SupportFragment>("fgt")?.let {
+//                mFragments[FIRST] = it
+//            }
+//
+//            CC.obtainBuilder("cImg")
+//                    .setActionName(ComponentImgAction.Into)
+//                    .build().call().getDataItem<SupportFragment>("fgt")?.let {
+//                mFragments[SECOND] = it
+//            }
+//
+//
+//            CC.obtainBuilder("cImg")
+//                    .setActionName(ComponentImgAction.Into)
+//                    .build().call().getDataItem<SupportFragment>("fgt")?.let {
+//                mFragments[THIRD] = it
+//            }
+
             mFragments[FIRST] = FgtImg.newInstance()
             mFragments[SECOND] = FgtVideo.newInstance()
             mFragments[THIRD] = FgtText.newInstance()
@@ -74,7 +96,7 @@ class FgtMain : BaseMainFragment() {
 
         tvLeft.text = "菜单"
         tvTitle.text = "图"
-        tvLeft.setOnClickListener { EventBusActivityScope.getDefault(_mActivity).post(ToggleDrawerEvent()) }
+        tvLeft.setOnClickListener { EventBus.getDefault().post(ToggleDrawerEvent()) }
 
         mBottomBar = view.findViewById<View>(R.id.bottomBar) as BottomBar
 
@@ -118,12 +140,12 @@ class FgtMain : BaseMainFragment() {
 
     override fun onSupportVisible() {
         super.onSupportVisible()
-        EventBusActivityScope.getDefault(_mActivity).post(LockDrawerEvent(false))
+        EventBus.getDefault().post(LockDrawerEvent(false))
     }
 
     override fun onSupportInvisible() {
         super.onSupportInvisible()
-        EventBusActivityScope.getDefault(_mActivity).post(LockDrawerEvent(true))
+        EventBus.getDefault().post(LockDrawerEvent(true))
     }
 
     /**
@@ -136,7 +158,7 @@ class FgtMain : BaseMainFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        EventBusActivityScope.getDefault(_mActivity).unregister(this)
+        EventBus.getDefault().unregister(this)
     }
 
 
@@ -152,6 +174,11 @@ class FgtMain : BaseMainFragment() {
      */
     fun startBrotherFragment(targetFragment: SupportFragment) {
         start(targetFragment)
+    }
+
+    @Subscribe
+    fun onCCevent(event: CCEvent) {
+        startBrotherFragment(event.fgt)
     }
 
     companion object {

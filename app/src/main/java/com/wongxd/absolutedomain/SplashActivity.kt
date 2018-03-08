@@ -4,14 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import com.github.wongxd.core_lib.IS_SHOW_AD
+import com.github.wongxd.core_lib.base.kotin.permission.PermissionType
+import com.github.wongxd.core_lib.base.kotin.permission.getPermission
+import com.github.wongxd.core_lib.base.utils.utilcode.util.ScreenUtils
+import com.github.wongxd.core_lib.util.SPUtils
 import com.luomi.lm.ad.ADType
 import com.luomi.lm.ad.DRAgent
 import com.luomi.lm.ad.IAdSuccessBack
 import com.luomi.lm.ad.LogUtil
-import com.wongxd.absolutedomain.base.kotin.permission.PermissionType
-import com.wongxd.absolutedomain.base.kotin.permission.getPermission
-import com.wongxd.absolutedomain.base.utils.utilcode.util.ScreenUtils
-import com.wongxd.absolutedomain.util.SPUtils
 import kotlinx.android.synthetic.main.aty_splash.*
 
 /**

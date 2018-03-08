@@ -4,12 +4,12 @@ import android.graphics.Color
 import android.os.Bundle
 import cn.bmob.v3.BmobUser
 import cn.bmob.v3.listener.UpdateListener
-import com.wongxd.absolutedomain.App
-import com.wongxd.absolutedomain.R
-import com.wongxd.absolutedomain.fragmenaction.BaseBackFragment
-import com.wongxd.absolutedomain.util.SystemUtils
-import com.wongxd.absolutedomain.util.TU
+import com.github.wongxd.core_lib.CoreApp
+import com.github.wongxd.core_lib.fragmenaction.BaseBackFragment
+import com.github.wongxd.core_lib.util.SystemUtils
+import com.github.wongxd.core_lib.util.TU
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog
+import com.wongxd.absolutedomain.R
 import kotlinx.android.synthetic.main.fgt_update_pwd.*
 
 /**
@@ -55,7 +55,7 @@ class FgtUpdatePwd : BaseBackFragment() {
                 pDialog.setConfirmClickListener {
                     pDialog.dismissWithAnimation()
                     BmobUser.logOut(_mActivity)
-                    App.user = null
+                    CoreApp.user = null
                     pop()
                 }
 

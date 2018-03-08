@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':core-lib', ':img-lib', ':video-lib', ':text-lib'
