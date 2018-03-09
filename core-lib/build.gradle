@@ -1,0 +1,114 @@
+apply from: 'https://raw.githubusercontent.com/luckybilly/CC/master/cc-settings.gradle'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'//kapt3插件
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+        kapt {
+            generateStubs = true//将第三方库先生成class在用kotlin注解(glide)
+        }
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    sourceSets {
+
+        main.jniLibs.srcDirs = ['libs']
+
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res',
+                            'src/main/res/layout/custom',
+                            'src/main/res/layout/utils',
+                    ]
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compile "org.jetbrains.anko:anko-sdk15:$rootProject.ankoVersion"
+    compile "org.jetbrains.anko:anko-sqlite:$rootProject.ankoVersion"
+    compile "com.android.support:appcompat-v7:$rootProject.androidSupportVersion"
+    compile "com.android.support:design:$rootProject.androidSupportVersion"
+    compile "com.android.support:palette-v7:$rootProject.androidSupportVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.androidSupportVersion"
+    compile "com.android.support:cardview-v7:$rootProject.androidSupportVersion"
+    compile "com.android.support.constraint:constraint-layout:$rootProject.constraintLayoutVersion"
+
+
+    compile "com.scwang.smartrefresh:SmartRefreshLayout:$rootProject.SmartRefreshLayoutVersion"
+    compile "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.BaseRecyclerViewAdapterHelperVersion"
+    compile "jp.wasabeef:recyclerview-animators:2.2.7"
+    compile "org.jsoup:jsoup:1.11.2"
+    compile "com.google.code.gson:gson:$rootProject.gsonVersion"
+
+    //okgo
+    compile "com.lzy.net:okgo:$rootProject.okgoVersion"
+    compile "com.lzy.net:okserver:$rootProject.okserverVersion"
+
+    compile "com.qmuiteam:qmui:$rootProject.qmuiVersion"
+    compile "com.github.thomper:sweet-alert-dialog:v1.4.0"
+    compile "com.orhanobut:logger:$rootProject.loggerVersion"
+    compile "com.github.bumptech.glide:glide:4.5.0"
+    kapt "com.github.bumptech.glide:compiler:4.5.0"//kotlin"中使用注解,生成GlideAPP
+    compile "com.github.bumptech.glide:okhttp3-integration:4.5.0"
+    compile("com.mikepenz:materialdrawer:6.0.2@aar") {
+        transitive = true
+    }
+    compile "com.tapadoo.android:alerter:$rootProject.alerterVersion"
+    compile "cn.jzvd:jiaozivideoplayer:$rootProject.jiaozivideoplayerVersion"
+
+    //bmob
+    compile "cn.bmob.android:bmob-sdk:$rootProject.bmobSdkVersion"
+    compile "com.squareup.okhttp:okhttp:$rootProject.bmobOkhttpVersion"
+    //CDN文件服务使用okhttp相关包进行文件的上传和下载（必填）
+    compile "com.squareup.okio:okio:$rootProject.bmobOkioVersion"
+    compile "cn.bmob.android:http-legacy:$rootProject.bmobHttpVersion"
+    //end bmob
+
+
+    //mvvm
+    compile "android.arch.lifecycle:runtime:$rootProject.lifecycleVersion"
+    compile "android.arch.lifecycle:extensions:$rootProject.lifecycleVersion"
+    kapt "android.arch.lifecycle:compiler:$rootProject.lifecycleVersion"
+    //end mvvm
+
+
+    // appcompat-v7包是必须的，v1.1.9兼容v4-27.0.0+
+    // 如果想使用SwipeBack 滑动边缘退出Fragment/Activity功能，完整的添加规则如下：
+    compile "me.yokeyword:fragmentation:$rootProject.fragmentationVersion"
+    // swipeback基于fragmentation, 如果是自定制SupportActivity/Fragment，则参照SwipeBackActivity/Fragment实现即可
+    compile "me.yokeyword:fragmentation-swipeback:$rootProject.fragmentationVersion"
+    // Activity作用域的EventBus，更安全，可有效避免after onSavenInstanceState()异常
+//    compile "me.yokeyword:eventbus-activity-scope:1.1.0"
+    // Your EventBus"s version
+    compile "org.greenrobot:eventbus:$rootProject.eventbusVersion"
+
+}
