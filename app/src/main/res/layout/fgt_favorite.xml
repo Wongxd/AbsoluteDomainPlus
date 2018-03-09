@@ -6,9 +6,15 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tv_tips_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="加载中..." />
 
-    <FrameLayout
-        android:id="@+id/fl_fgt_favorite"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_favorite"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
@@ -22,4 +28,5 @@
         android:id="@+id/tab_fgt_favorite"
         android:layout_width="match_parent"
         android:layout_height="40dp" />
+
 </LinearLayout>

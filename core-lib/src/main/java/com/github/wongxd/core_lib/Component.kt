@@ -38,6 +38,13 @@ class ComponentImgAction {
     companion object {
 
         val Into = "intoImg"
+
+        /**
+         * 获取入口class
+         */
+        val GetIntoClass = "getIntoClass"
+
+        val GetFavoritClass = "getFavoriteClass"
     }
 
 }
@@ -47,6 +54,13 @@ class ComponentVideoAction {
     companion object {
 
         val Into = "intoVideo"
+
+        /**
+         * 获取入口class
+         */
+        val GetIntoClass = "getIntoClass"
+
+        val GetFavoritClass = "getFavoriteClass"
     }
 
 }
@@ -56,6 +70,14 @@ class ComponentTextAction {
     companion object {
 
         val Into = "intoText"
+
+
+        /**
+         * 获取入口class
+         */
+        val GetIntoClass = "getIntoClass"
+
+        val GetFavoritClass = "getFavoriteClass"
     }
 
 }

@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.billy.cc.core.component.CC
+import com.github.wongxd.core_lib.ComponentImgAction
+import com.github.wongxd.core_lib.ComponentTextAction
+import com.github.wongxd.core_lib.ComponentVideoAction
 import com.github.wongxd.core_lib.custom.view.BottomBar
 import com.github.wongxd.core_lib.custom.view.BottomBarTab
 import com.github.wongxd.core_lib.fragmenaction.BaseMainFragment
 import com.github.wongxd.img_lib.img.FgtImg
-import com.github.wongxd.text_lib.text.FgtText
-import com.github.wongxd.video_lib.video.FgtVideo
 import com.wongxd.absolutedomain.event.CCEvent
 import com.wongxd.absolutedomain.event.LockDrawerEvent
 import com.wongxd.absolutedomain.event.TabSelectedEvent
 import com.wongxd.absolutedomain.event.ToggleDrawerEvent
+import com.wongxd.absolutedomain.ui.data.bean.FgtWithTitleBean
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragment
 import org.greenrobot.eventbus.EventBus
@@ -27,7 +30,7 @@ import org.greenrobot.eventbus.Subscribe
 
 class FgtMain : BaseMainFragment() {
 
-    private val mFragments = arrayOfNulls<SupportFragment>(4)
+    private val mFragments: MutableList<FgtWithTitleBean> = ArrayList()
 
     private var mBottomBar: BottomBar? = null
 
@@ -45,47 +48,93 @@ class FgtMain : BaseMainFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-//        val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,SystemBarHelper.getStatusBarHeight(activity))
-//        v_fake_statusbar.layoutParams = params
+        loadFgts()
+    }
 
-        val firstFragment = findChildFragment(FgtImg::class.java)
+    private fun loadFgts() {
+        //        val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,SystemBarHelper.getStatusBarHeight(activity))
+        //        v_fake_statusbar.layoutParams = params
+
+
+        mFragments.clear()
+
+        val firstFragment =
+                CC.obtainBuilder("cImg")
+                        .setActionName(ComponentImgAction.GetIntoClass)
+                        .build().call().getDataItem<Class<SupportFragment>>("cls")
+                        ?.let {
+                            findChildFragment(it)
+                        }
+
         if (firstFragment == null) {
 
             //测试下 通过 cc 拿 fgt 实例
-//            CC.obtainBuilder("cImg")
-//                    .setActionName(ComponentImgAction.Into)
-//                    .build().call().getDataItem<SupportFragment>("fgt")?.let {
-//                mFragments[FIRST] = it
-//            }
-//
-//            CC.obtainBuilder("cImg")
-//                    .setActionName(ComponentImgAction.Into)
-//                    .build().call().getDataItem<SupportFragment>("fgt")?.let {
-//                mFragments[SECOND] = it
-//            }
-//
-//
-//            CC.obtainBuilder("cImg")
-//                    .setActionName(ComponentImgAction.Into)
-//                    .build().call().getDataItem<SupportFragment>("fgt")?.let {
-//                mFragments[THIRD] = it
-//            }
+            CC.obtainBuilder("cImg")
+                    .setActionName(ComponentImgAction.Into)
+                    .build().call()
+                    .getDataItem<SupportFragment>("fgt")?.let {
+                mFragments.add(FgtWithTitleBean(it, "图"))
+                mBottomBar!!
+                        .addItem(BottomBarTab(_mActivity, R.drawable.img, "图"))
+            }
 
-            mFragments[FIRST] = FgtImg.newInstance()
-            mFragments[SECOND] = FgtVideo.newInstance()
-            mFragments[THIRD] = FgtText.newInstance()
+            CC.obtainBuilder("cVideo")
+                    .setActionName(ComponentVideoAction.Into)
+                    .build().call()
+                    .getDataItem<SupportFragment>("fgt")?.let {
+                mFragments.add(FgtWithTitleBean(it, "视"))
+                mBottomBar!!
+                        .addItem(BottomBarTab(_mActivity, R.drawable.video, "视"))
+            }
 
-            loadMultipleRootFragment(R.id.fl_tab_container, FIRST,
-                    mFragments[FIRST],
-                    mFragments[SECOND],
-                    mFragments[THIRD])
+
+            CC.obtainBuilder("cText")
+                    .setActionName(ComponentTextAction.Into)
+                    .build().call()
+                    .getDataItem<SupportFragment>("fgt")?.let {
+                mFragments.add(FgtWithTitleBean(it, "文"))
+                mBottomBar!!
+                        .addItem(BottomBarTab(_mActivity, R.drawable.text, "文"))
+            }
+
+
+            loadMultipleRootFragment(R.id.fl_tab_container, FIRST, *mFragments.map { it.fgt }.toTypedArray())
+
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
             // 这里我们需要拿到mFragments的引用
-            mFragments[FIRST] = findChildFragment(FgtImg::class.java)
-            mFragments[SECOND] = findChildFragment(FgtVideo::class.java)
-            mFragments[THIRD] = findChildFragment(FgtText::class.java)
+
+            CC.obtainBuilder("cImg")
+                    .setActionName(ComponentImgAction.GetIntoClass)
+                    .build().call()
+                    .getDataItem<Class<FgtImg>>("cls")?.let {
+                mFragments.add(FgtWithTitleBean(it.newInstance(),"图"))
+                mBottomBar!!
+                        .addItem(BottomBarTab(_mActivity, R.drawable.img, "图"))
+            }
+
+
+            CC.obtainBuilder("cVideo")
+                    .setActionName(ComponentVideoAction.GetIntoClass)
+                    .build().call()
+                    .getDataItem<Class<FgtImg>>("cls")?.let {
+                mFragments.add(FgtWithTitleBean(it.newInstance(),"视"))
+                mBottomBar!!
+                        .addItem(BottomBarTab(_mActivity, R.drawable.video, "视"))
+            }
+
+
+            CC.obtainBuilder("cText")
+                    .setActionName(ComponentTextAction.GetIntoClass)
+                    .build().call()
+                    .getDataItem<Class<FgtImg>>("cls")?.let {
+                mFragments.add(FgtWithTitleBean(it.newInstance(),"文"))
+                mBottomBar!!
+                        .addItem(BottomBarTab(_mActivity, R.drawable.text, "文"))
+            }
+
+
         }
     }
 
@@ -100,24 +149,16 @@ class FgtMain : BaseMainFragment() {
 
         mBottomBar = view.findViewById<View>(R.id.bottomBar) as BottomBar
 
-        mBottomBar!!
-                .addItem(BottomBarTab(_mActivity, R.drawable.img, "图"))
-                .addItem(BottomBarTab(_mActivity, R.drawable.video, "视"))
-                .addItem(BottomBarTab(_mActivity, R.drawable.text, "文"))
 
         // 模拟未读消息
         //        mBottomBar.getItem(FIRST).setUnreadCount(9);
 
         mBottomBar!!.setOnTabSelectedListener(object : BottomBar.OnTabSelectedListener {
             override fun onTabSelected(position: Int, prePosition: Int) {
-                showHideFragment(mFragments[position], mFragments[prePosition])
+                showHideFragment(mFragments[position].fgt, mFragments[prePosition].fgt)
 
-                val title = when (position) {
-                    FIRST -> "图"
-                    SECOND -> "视"
-                    else -> "文"
-                }
-                tvTitle.text = title
+                tvTitle.text = mFragments[position].title
+                
                 //                BottomBarTab tab = mBottomBar.getItem(FIRST);
                 //                if (position == FIRST) {
                 //                    tab.setUnreadCount(0);

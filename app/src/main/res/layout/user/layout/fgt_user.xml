@@ -6,8 +6,8 @@
     android:orientation="vertical">
 
     <com.qmuiteam.qmui.widget.QMUITopBar
-        android:layout_width="match_parent"
         android:id="@+id/topbar_user"
+        android:layout_width="match_parent"
         android:layout_height="45dp" />
 
     <View
@@ -25,7 +25,7 @@
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="用户名" />
+            android:text="用户昵称" />
 
         <TextView
             android:id="@+id/tv_user_name_aty_user_info"

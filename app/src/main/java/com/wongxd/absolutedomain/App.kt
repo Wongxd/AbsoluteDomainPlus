@@ -4,13 +4,9 @@ import android.content.Context
 import android.support.multidex.MultiDex
 import android.text.TextUtils
 import cn.jpush.android.api.JPushInterface
-import com.billy.cc.core.component.CC
 import com.github.wongxd.core_lib.CoreApp
 import com.github.wongxd.core_lib.R
 import com.github.wongxd.core_lib.base.CircularAnim
-import com.github.wongxd.img_lib.ComponentImg
-import com.github.wongxd.text_lib.ComponentText
-import com.github.wongxd.video_lib.ComponentVideo
 import com.luomi.lm.ad.DRAgent
 import com.luomi.lm.ad.LogUtil
 import com.orhanobut.logger.LogLevel
@@ -103,11 +99,6 @@ class App : CoreApp() {
         LogUtil.setENABLE_LOGCAT(true)
         DRAgent.getInstance().init(this.applicationContext, "65a3f31939037d2f2329fcf80a1069ca", true)
 
-
-        CC.registerComponent(ComponentApp())
-        CC.registerComponent(ComponentImg())
-        CC.registerComponent(ComponentVideo())
-        CC.registerComponent(ComponentText())
     }
 
 

@@ -55,8 +55,6 @@ fun ImageView.loadOriginScaleImg(imgPath: Any) {
 fun ImageView.loadHeader(imgPath: Any) {
 
     val options: RequestOptions = RequestOptions()
-            .placeholder(R.drawable.ic_user)
-            .error(R.drawable.error)
             .transform(CircleCrop())
     Glide.with(this.context).load(imgPath)
             .apply(options)

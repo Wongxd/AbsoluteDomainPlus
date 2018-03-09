@@ -47,7 +47,7 @@
 #-------------------------------------------定制化区域----------------------------------------------
 #---------------------------------1.实体类---------------------------------
 -keep class com.wongxd.jmyc.model.** { *; }
--keep class com.wongxd.absolutedomain.ui.data.bean.** {*;
+-keep class com.github.wongxd.core_lib.data.bean.** {*;
 public void set*(***);
 public *** get*();
 public *** is*();
@@ -274,9 +274,8 @@ public *** is*();
 #-------------------------------------------------------------------------
 
 #---------------------------------4.反射相关的类和方法-----------------------
--keep class com.github.wongxd.domain.base.utils.**
+-keep class com.github.wongxd.core_lib.base.utils.**
 -keep class * extends android.support.v4.app.Fragment
--keep class com.wongxd.absolutedomain.ui.**
 
 #----------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------

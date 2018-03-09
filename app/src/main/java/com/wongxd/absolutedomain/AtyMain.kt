@@ -14,9 +14,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import cn.bmob.v3.BmobUser
 import cn.jzvd.JZVideoPlayer
-import com.github.wongxd.core_lib.CoreApp
-import com.github.wongxd.core_lib.IS_SHOW_ACTIVITY
-import com.github.wongxd.core_lib.IS_SHOW_AD
+import com.billy.cc.core.component.CC
+import com.github.wongxd.core_lib.*
 import com.github.wongxd.core_lib.base.kotin.permission.PermissionType
 import com.github.wongxd.core_lib.base.kotin.permission.getPermissions
 import com.github.wongxd.core_lib.custom.whatsnew.WhatsNew
@@ -33,6 +32,9 @@ import com.github.wongxd.core_lib.util.TU
 import com.github.wongxd.core_lib.util.apk.UpdateUtil
 import com.github.wongxd.core_lib.util.cache.DataCleanManager
 import com.github.wongxd.core_lib.util.cache.GlideCatchUtil
+import com.github.wongxd.img_lib.ComponentImg
+import com.github.wongxd.text_lib.ComponentText
+import com.github.wongxd.video_lib.ComponentVideo
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
@@ -72,7 +74,13 @@ class AtyMain : BaseActivity() {
 
         EventBus.getDefault().register(this)
 
+        CC.registerComponent(ComponentApp())
+        CC.registerComponent(ComponentImg())
 
+        if (SPUtils.get(key = IS_LOAD_VIDEO, defaultObject = true) as Boolean)
+            CC.registerComponent(ComponentVideo())
+        if (SPUtils.get(key = IS_LOAD_TEXT, defaultObject = true) as Boolean)
+            CC.registerComponent(ComponentText())
 
         initPermission()
 
@@ -492,8 +500,15 @@ class AtyMain : BaseActivity() {
 
 
     override fun onDestroy() {
-        super.onDestroy()
+        CC.unregisterComponent(ComponentApp())
+        CC.unregisterComponent(ComponentImg())
+
+        CC.unregisterComponent(ComponentVideo())
+        CC.unregisterComponent(ComponentText())
+
+
         EventBus.getDefault().unregister(this)
+        super.onDestroy()
     }
 
 }

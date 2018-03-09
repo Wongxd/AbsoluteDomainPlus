@@ -56,7 +56,6 @@ class FgtDownload : BaseBackFragment() {
         tab_fgt_download.addTab(QMUITabSegment.Tab("下载中"))
         tab_fgt_download.addTab(QMUITabSegment.Tab("图"))
         tab_fgt_download.addTab(QMUITabSegment.Tab("视"))
-//        tab_fgt_download.addTab(QMUITabSegment.Tab("文"))
         tab_fgt_download.setHasIndicator(true)
         activity?.getPrimaryColor()?.let { tab_fgt_download.setBackgroundColor(it) }
         tab_fgt_download.setDefaultSelectedColor(Color.WHITE)
@@ -72,8 +71,6 @@ class FgtDownload : BaseBackFragment() {
             FgtDownloadItem.newInstance(DownloadAdapter.TYPE_DOWNLOADING),
             FgtDownloadItem.newInstance(DownloadAdapter.TYPE_IMG),
             FgtDownloadItem.newInstance(DownloadAdapter.TYPE_VIDEO)
-//            ,
-//            FgtDownloadItem.newInstance(DownloadAdapter.TYPE_TEXT)
     )
 
 
