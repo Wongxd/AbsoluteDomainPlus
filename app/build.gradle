@@ -113,9 +113,9 @@ dependencies {
     // 此处以JCore 1.1.9 版本为例。
 
 
-    implementation files('libs/open_sdk_r5923_lite.jar')
-    implementation files('libs/lm_imageLoader.jar')
-    implementation files('libs/luomi_7.2_ok.jar')
+    implementation files('../libs/open_sdk_r5923_lite.jar')
+    implementation files('../libs/lm_imageLoader.jar')
+    implementation files('../libs/luomi_7.2_ok.jar')
     implementation project(':core-lib')
     implementation project(':img-lib')
     implementation project(':text-lib')

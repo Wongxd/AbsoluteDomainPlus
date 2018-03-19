@@ -4,13 +4,13 @@ import android.app.Application
 import cn.bmob.v3.Bmob
 import com.billy.cc.core.component.CC
 import com.github.wongxd.core_lib.base.utils.utilcode.util.Utils
-import com.github.wongxd.core_lib.custom.storeHouseHeader.StoreHouseHeader
+import com.github.wongxd.core_lib.custom.ADFooter
+import com.github.wongxd.core_lib.custom.ADHeader
 import com.github.wongxd.core_lib.data.bean.UserBean
 import com.github.wongxd.core_lib.util.TU
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.cache.CacheMode
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
@@ -48,19 +48,23 @@ open class CoreApp : Application() {
 
         //smartRefresh
         SmartRefreshLayout.setDefaultRefreshHeaderCreater({ context, layout ->
-            val header = StoreHouseHeader(context)
-            header.initWithString("ABSOLUTE-DOMAIN")
-            header
+            //            val header = StoreHouseHeader(context)
+//            header.initWithString("ABSOLUTE-DOMAIN")
+//            header
+            ADHeader(context)
         })
 
-        SmartRefreshLayout.setDefaultRefreshFooterCreater({ context, layout -> ClassicsFooter(context) })
+        SmartRefreshLayout.setDefaultRefreshFooterCreater({ context, layout ->
+            //            ClassicsFooter(context)
+            ADFooter(context)
+        })
 
         Bmob.initialize(this, BMOB_ID)
 
 
         //开启/关闭debug日志打印
         CC.enableDebug(BuildConfig.LOG_DEBUG)
-       //开启/关闭组件调用详细日志打印
+        //开启/关闭组件调用详细日志打印
         CC.enableVerboseLog(BuildConfig.LOG_DEBUG)
     }
 

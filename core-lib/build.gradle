@@ -115,4 +115,6 @@ dependencies {
     // Your EventBus"s version
     compile "org.greenrobot:eventbus:$rootProject.eventbusVersion"
 
+    implementation files('../libs/lm_imageLoader.jar')
+    implementation files('../libs/luomi_7.2_ok.jar')
 }
