@@ -5,11 +5,11 @@ import android.arch.lifecycle.ViewModel
 import com.github.wongxd.core_lib.DEFAULT_TU_SITE
 import com.github.wongxd.core_lib.RequestState
 import com.github.wongxd.core_lib.base.utils.utilcode.util.CacheUtils
-import com.github.wongxd.img_lib.img.tuSite.*
 import com.github.wongxd.core_lib.util.SPUtils
 import com.github.wongxd.img_lib.data.bean.ImgSiteBean
 import com.github.wongxd.img_lib.data.bean.ImgTypeBean
 import com.github.wongxd.img_lib.data.bean.TuListBean
+import com.github.wongxd.img_lib.img.tuSite.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -42,12 +42,10 @@ class TuViewModel : ViewModel() {
 
         siteList.add(ImgSiteBean(MZiTu::class.java.simpleName, MZiTu::class.java))
         siteList.add(ImgSiteBean(T99mm::class.java.simpleName, T99mm::class.java))
-        siteList.add(ImgSiteBean(Tu4493::class.java.simpleName, Tu4493::class.java))
         siteList.add(ImgSiteBean(Gank::class.java.simpleName, Gank::class.java))
         siteList.add(ImgSiteBean(Jdlingyu::class.java.simpleName, Jdlingyu::class.java))
         siteList.add(ImgSiteBean(T192TT::class.java.simpleName, T192TT::class.java))
         siteList.add(ImgSiteBean(KeKe123::class.java.simpleName, KeKe123::class.java))
-        siteList.add(ImgSiteBean(MeiSiGuan::class.java.simpleName, MeiSiGuan::class.java))
 
         this.siteList.value = siteList
     }
