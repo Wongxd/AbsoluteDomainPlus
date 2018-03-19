@@ -15,6 +15,8 @@ public class UserBean extends BmobUser {
 
     private String nickName;
 
+    private String qqHeader;
+
     //图集收藏
     private BmobFile imgFavorite;
 
@@ -22,6 +24,13 @@ public class UserBean extends BmobUser {
 
     private BmobFile textFavorite;
 
+    public String getQqHeader() {
+        return qqHeader;
+    }
+
+    public void setQqHeader(String qqHeader) {
+        this.qqHeader = qqHeader;
+    }
 
     public Boolean getShowAd() {
         return isShowAd;

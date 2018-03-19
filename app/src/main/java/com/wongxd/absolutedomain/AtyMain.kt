@@ -344,7 +344,7 @@ class AtyMain : BaseActivity() {
         userName.text = "未登录用户"
 
         CoreApp.user?.let {
-            userImg.loadHeader(R.drawable.login_suc)
+            it.qqHeader?.let { userImg.loadHeader(it) } ?: userImg.loadHeader(R.drawable.login_suc)
             userName.text = it.nickName
             SPUtils.put(key = IS_SHOW_AD, `object` = it.showAd ?: true)
             SPUtils.put(key = IS_SHOW_ACTIVITY, `object` = it.showActivity ?: true)

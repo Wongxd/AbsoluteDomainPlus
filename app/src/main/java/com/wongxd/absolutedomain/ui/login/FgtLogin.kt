@@ -331,8 +331,8 @@ class FgtLogin : BaseBackFragment() {
 
                     try {
                         val jo = value as JSONObject?
-//                        Logger.e(jo.toString())
-                        val qq_header = jo?.optString("figureurl_qq_1") ?: "qq_header"
+                        Logger.e(jo.toString())
+                        val qq_header = jo?.optString("figureurl_qq_2") ?: "figureurl_qq_1"
                         +System.currentTimeMillis()
                         val qq_name = jo?.optString("nickname") ?: "qq_name"
                         +System.currentTimeMillis()
@@ -347,44 +347,30 @@ class FgtLogin : BaseBackFragment() {
                                 //修改昵称
                                 val newUser = BmobUser.getCurrentUser(activity, UserBean::class.java)
 
-                                if (newUser.nickName.isNullOrBlank()) {
-                                    newUser.nickName = qq_name
-                                    newUser.update(context, object : UpdateListener() {
-                                        override fun onSuccess() {
-                                            uiThread {
-                                                CoreApp.user = (BmobUser.getCurrentUser(activity, UserBean::class.java))
-                                                EventBus.getDefault().post(LogStateChangeEvent())
-                                                pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
-                                                pDialog.titleText = "你好---${newUser.nickName}"
-                                                pDialog.setConfirmClickListener {
-                                                    it.dismissWithAnimation()
-                                                    pop()
-                                                }
+                                newUser.nickName = qq_name
+                                newUser.qqHeader = qq_header
+                                newUser.update(context, object : UpdateListener() {
+                                    override fun onSuccess() {
+                                        uiThread {
+                                            CoreApp.user = (BmobUser.getCurrentUser(activity, UserBean::class.java))
+                                            EventBus.getDefault().post(LogStateChangeEvent())
+                                            pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
+                                            pDialog.titleText = "你好---${newUser.nickName}"
+                                            pDialog.setConfirmClickListener {
+                                                it.dismissWithAnimation()
+                                                pop()
                                             }
                                         }
-
-                                        override fun onFailure(p0: Int, p1: String?) {
-                                            uiThread {
-                                                pDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE)
-                                                pDialog.titleText = p1 ?: "登录出错"
-                                                pDialog.setConfirmClickListener { it.dismissWithAnimation() }
-                                            }
-                                        }
-                                    })
-                                } else {
-                                    uiThread {
-
-                                        CoreApp.user = (BmobUser.getCurrentUser(activity, UserBean::class.java))
-                                        EventBus.getDefault().post(LogStateChangeEvent())
-                                        pDialog.titleText = "你好---${newUser.nickName}"
-                                        pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
-                                        pDialog.setConfirmClickListener {
-                                            it.dismissWithAnimation()
-                                            pop()
-                                        }
-
                                     }
-                                }
+
+                                    override fun onFailure(p0: Int, p1: String?) {
+                                        uiThread {
+                                            pDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE)
+                                            pDialog.titleText = p1 ?: "登录出错"
+                                            pDialog.setConfirmClickListener { it.dismissWithAnimation() }
+                                        }
+                                    }
+                                })
 
                             }
 
