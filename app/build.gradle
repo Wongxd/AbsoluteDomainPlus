@@ -5,9 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'//kapt3插件
 
-
 //apply plugin: 'bugly'
-
 
 //bugly {
 //    appId = "1c3475b0ab"
@@ -21,7 +19,7 @@ android {
         multiDexKeepFile file('multiDexKeep.txt') // keep specific classes
         applicationId "com.wongxd.absolutedomain"
         minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion  rootProject.ext.targetSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode gitVersionCode()
         versionName "3.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -59,7 +57,11 @@ android {
             shrinkResources true
             minifyEnabled true
             zipAlignEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro',
+                    '../core-lib/proguard-rules.pro',
+                    '../img-lib/proguard-rules.pro',
+                    '../text-lib/proguard-rules.pro',
+                    '../video-lib/proguard-rules.pro'
             // 不显示Log
             buildConfigField "boolean", "LOG_DEBUG", "false"
         }
@@ -104,7 +106,6 @@ dependencies {
     //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
     //    implementation "com.tencent.bugly:nativecrashreport:latest.release"
     //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
-
 
 
     implementation 'cn.jiguang.sdk:jpush:3.1.1'

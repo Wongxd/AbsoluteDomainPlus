@@ -46,8 +46,8 @@
 
 #-------------------------------------------定制化区域----------------------------------------------
 #---------------------------------1.实体类---------------------------------
--keep class com.wongxd.jmyc.model.** { *; }
--keep com.github.wongxd.text_lib.data.bean.** {*;
+-keep class com.github.wongxd.text_lib.data.bean.** { *; }
+-keep class com.github.wongxd.text_lib.data.bean.** {*;
 public void set*(***);
 public *** get*();
 public *** is*();
@@ -277,6 +277,8 @@ public *** is*();
 -keep class com.github.wongxd.domain.base.utils.**
 -keep class * extends android.support.v4.app.Fragment
 -keep class com.github.wongxd.text_lib.text.**
+-keep class com.github.wongxd.text_lib.text.event.**
+-keep class com.github.wongxd.text_lib.text.textSite.**
 
 #----------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------

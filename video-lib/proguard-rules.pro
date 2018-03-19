@@ -46,7 +46,7 @@
 
 #-------------------------------------------定制化区域----------------------------------------------
 #---------------------------------1.实体类---------------------------------
--keep class com.wongxd.jmyc.model.** { *; }
+-keep class com.github.wongxd.video_lib.data.bean.** { *; }
 -keep class com.github.wongxd.video_lib.data.bean.** {*;
 public void set*(***);
 public *** get*();
