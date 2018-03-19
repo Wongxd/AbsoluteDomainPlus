@@ -51,19 +51,20 @@ open class CoreApp : Application() {
 
         //smartRefresh
         SmartRefreshLayout.setDefaultRefreshHeaderCreater({ context, layout ->
-            if (SPUtils.get(key = IS_SHOW_AD, defaultObject = true) as Boolean) {
+            if (SPUtils.get(key = IS_SHOW_AD, defaultObject = true) as Boolean)
+                ADHeader(context)
+            else {
                 val header = StoreHouseHeader(context)
                 header.initWithString("ABSOLUTE-DOMAIN")
                 header
-            } else
-                ADHeader(context)
+            }
         })
 
         SmartRefreshLayout.setDefaultRefreshFooterCreater({ context, layout ->
             if (SPUtils.get(key = IS_SHOW_AD, defaultObject = true) as Boolean)
-                ClassicsFooter(context)
-            else
                 ADFooter(context)
+            else
+                ClassicsFooter(context)
         })
 
         Bmob.initialize(this, BMOB_ID)
