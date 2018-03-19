@@ -1,11 +1,11 @@
 {
     "data": {
-        "content": "*qq登录后，使用qq头像\n*用户去广逻辑更新\n*移除图集中 tu4493 和 meisiguan 站点（网站不可用）\n*换肤后，不能切换模块的bug修复
+        "content": "*图集切换ui美化\n*qq登录后，使用qq头像\n*用户去广逻辑更新\n*移除图集中 tu4493 和 meisiguan 站点（网站不可用）\n*换肤后，不能切换模块的bug修复
         \n*模块的动态加载与卸载\n*其它",
         "extras": {
-            "url": "https://raw.githubusercontent.com/Wongxd/AbsoluteDomainPlus/master/app/apk/3.0.3-release.apk"
+            "url": "https://raw.githubusercontent.com/Wongxd/AbsoluteDomainPlus/master/app/apk/3.0.4-release.apk"
         },
-        "title": "版本更新(3.0.3)"
+        "title": "版本更新(3.0.4)"
     },
-    "version": "3.0.3"
+    "version": "3.0.4"
 }
