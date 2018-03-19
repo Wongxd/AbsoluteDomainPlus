@@ -499,6 +499,11 @@ class AtyMain : BaseActivity() {
     }
 
 
+    override fun recreate() {
+        pop()
+        super.recreate()
+    }
+
     override fun onDestroy() {
         CC.unregisterComponent(ComponentApp())
         CC.unregisterComponent(ComponentImg())

@@ -7,17 +7,15 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.TextView
+import android.widget.ArrayAdapter
 import com.billy.cc.core.component.CC
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
 import com.github.wongxd.core_lib.ComponentAppAction
 import com.github.wongxd.core_lib.RequestState
-import com.github.wongxd.core_lib.base.decorator.DividerItemDecoration
 import com.github.wongxd.core_lib.base.kotin.extension.database.parseList
 import com.github.wongxd.core_lib.base.kotin.extension.database.toVarargArray
+import com.github.wongxd.core_lib.custom.directselect.DSListView
 import com.github.wongxd.core_lib.fragmenaction.MainTabFragment
 import com.github.wongxd.img_lib.R
 import com.github.wongxd.img_lib.data.bean.ImgSiteBean
@@ -25,6 +23,8 @@ import com.github.wongxd.img_lib.data.bean.ImgTypeBean
 import com.github.wongxd.img_lib.data.bean.TuListBean
 import com.github.wongxd.img_lib.img.adapter.RvFgtImgAdapter
 import com.github.wongxd.img_lib.img.event.TuFavoriteEvent
+import com.github.wongxd.img_lib.img.siteSelecte.SiteAdapter
+import com.github.wongxd.img_lib.img.siteSelecte.SitePickerBox
 import com.tapadoo.alerter.Alerter
 import com.wongxd.absolutedomain.data.database.Tu
 import com.wongxd.absolutedomain.data.database.TuTable
@@ -55,47 +55,43 @@ class FgtImg : MainTabFragment() {
         }
     }
 
-    private lateinit var siteAdapter: SiteAdapter
+    private lateinit var siteAdapter: ArrayAdapter<ImgSiteBean>
     private lateinit var adapter: RvFgtImgAdapter
     private lateinit var mVm: TuViewModel
+
+    private val siteList: MutableList<ImgSiteBean> = ArrayList()
 
     @SuppressLint("SetTextI18n")
     override fun initView(mView: View?) {
         EventBus.getDefault().register(this)
         mVm = ViewModelProviders.of(_mActivity).get(TuViewModel::class.java)
         initRecycle()
-        bottom_sheet_fgt_img.setOnClickListener {
-            bottom_sheet_fgt_img.toggle()
-        }
+
         initSiteSwitch()
-        bottom_sheet_fgt_img.setOnProgressListener {
 
-            if (it > 0.8) {
-                tab_fgt_img.visibility = View.GONE
-            } else {
-                tab_fgt_img.visibility = View.VISIBLE
-            }
-            tab_fgt_img.alpha = 1.toFloat() - it
-
-
-        }
         srl_fgt_img.setOnRefreshListener { rv_fgt_img.scrollToPosition(0);mVm.refreshList() }
         srl_fgt_img.setOnLoadmoreListener { mVm.addPageList() }
 
         mVm.siteList.observe(this, Observer {
-            siteAdapter.setNewData(it)
-        })
-        mVm.tuList.observe(this, object : Observer<MutableList<TuListBean>> {
-            override fun onChanged(t: MutableList<TuListBean>?) {
-                t?.let {
-                    if (mVm.currentPage != 1)
-                        adapter.addData(it)
-                    else
-                        adapter.setNewData(it)
+            it?.let {
+                siteList.clear()
+                siteList.addAll(it)
+                siteAdapter.notifyDataSetChanged()
 
-                }
+                val current = it.filter { it.site::class.java.name == TuViewModel.defaultTuSite::class.java.name }
+                if (siteList.isNotEmpty() && current.isNotEmpty())
+                    siteListView.selectedIndex = it.indexOf(current[0])
             }
+        })
 
+        mVm.tuList.observe(this, Observer<MutableList<TuListBean>> { t ->
+            t?.let {
+                if (mVm.currentPage != 1)
+                    adapter.addData(it)
+                else
+                    adapter.setNewData(it)
+
+            }
         })
         mVm.getListState.observe(this, object : Observer<RequestState> {
             override fun onChanged(t: RequestState?) {
@@ -127,34 +123,25 @@ class FgtImg : MainTabFragment() {
             }
         })
 
-        tv_site_switch_fgt_img.text= "切换站点 （${TuViewModel.defaultTuSite.javaClass.simpleName}）"
 
-        bottom_sheet_fgt_img.collapse()
     }
 
+    val siteListView: DSListView<ImgSiteBean> by lazy { ds_picker_img as DSListView<ImgSiteBean> }
 
     private fun initSiteSwitch() {
-        siteAdapter = SiteAdapter()
-        rv_site_fgt_img.adapter = siteAdapter
-        rv_site_fgt_img.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        rv_site_fgt_img.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL_LIST))
+        siteAdapter = SiteAdapter(context!!, siteList)
+        siteListView.setAdapter(siteAdapter)
 
-    }
+        siteListView.setPickerBox(site_picker_img)
 
-    inner class SiteAdapter : BaseQuickAdapter<ImgSiteBean, BaseViewHolder>(R.layout.item_rv_site) {
-        override fun convert(helper: BaseViewHolder?, item: ImgSiteBean?) {
-
-            val tv = helper?.getView<TextView>(R.id.tv)
-            tv?.text = if (item?.site?.name == TuViewModel.defaultTuSite.javaClass.name) item?.title + "(当前)" else item?.title
-
-            helper?.itemView?.setOnClickListener {
-                mVm.changeSite(item?.site!!)
-                notifyDataSetChanged()
-                bottom_sheet_fgt_img.toggle()
-                tv_site_switch_fgt_img.text = "切换站点  (${item.title}) "
+        site_picker_img.setSelectedListener(object : SitePickerBox.SiteSelecterListener {
+            override fun onCall(item: ImgSiteBean, selectedIndex: Int) {
+                mVm.changeSite(item.site)
+                siteAdapter.notifyDataSetChanged()
             }
-        }
+        })
     }
+
 
     private fun initTab(typeList: List<ImgTypeBean>) {
         tab_fgt_img.removeAllTabs()
@@ -242,8 +229,8 @@ class FgtImg : MainTabFragment() {
 
 
     override fun onDestroyView() {
-        super.onDestroyView()
         EventBus.getDefault().unregister(this)
+        super.onDestroyView()
     }
 
     @Subscribe

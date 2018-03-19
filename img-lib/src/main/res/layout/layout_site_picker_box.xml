@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fl_root"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_marginStart="5dp"
+    android:padding="2dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
+
+    <com.github.wongxd.core_lib.custom.MarqueeTextview
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:background="?attr/primary_color"
+        android:ellipsize="marquee"
+        android:gravity="center"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:singleLine="true"
+        android:text="切换站点"
+        android:textColor="@color/white" />
+</android.support.v7.widget.CardView>

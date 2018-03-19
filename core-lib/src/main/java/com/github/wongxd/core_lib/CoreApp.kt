@@ -59,9 +59,9 @@ open class CoreApp : Application() {
 
 
         //开启/关闭debug日志打印
-        CC.enableDebug(true)
+        CC.enableDebug(BuildConfig.LOG_DEBUG)
        //开启/关闭组件调用详细日志打印
-        CC.enableVerboseLog(true)
+        CC.enableVerboseLog(BuildConfig.LOG_DEBUG)
     }
 
 

@@ -49,6 +49,9 @@ class FgtMain : BaseMainFragment() {
         super.onActivityCreated(savedInstanceState)
 
         loadFgts()
+        mFragments.forEach {
+            mBottomBar?.addItem(BottomBarTab(_mActivity, it.iconRes, it.title))
+        }
     }
 
     private fun loadFgts() {
@@ -73,18 +76,14 @@ class FgtMain : BaseMainFragment() {
                     .setActionName(ComponentImgAction.Into)
                     .build().call()
                     .getDataItem<SupportFragment>("fgt")?.let {
-                mFragments.add(FgtWithTitleBean(it, "图"))
-                mBottomBar!!
-                        .addItem(BottomBarTab(_mActivity, R.drawable.img, "图"))
+                mFragments.add(FgtWithTitleBean(it, "图", R.drawable.img))
             }
 
             CC.obtainBuilder("cVideo")
                     .setActionName(ComponentVideoAction.Into)
                     .build().call()
                     .getDataItem<SupportFragment>("fgt")?.let {
-                mFragments.add(FgtWithTitleBean(it, "视"))
-                mBottomBar!!
-                        .addItem(BottomBarTab(_mActivity, R.drawable.video, "视"))
+                mFragments.add(FgtWithTitleBean(it, "视", R.drawable.video))
             }
 
 
@@ -92,9 +91,7 @@ class FgtMain : BaseMainFragment() {
                     .setActionName(ComponentTextAction.Into)
                     .build().call()
                     .getDataItem<SupportFragment>("fgt")?.let {
-                mFragments.add(FgtWithTitleBean(it, "文"))
-                mBottomBar!!
-                        .addItem(BottomBarTab(_mActivity, R.drawable.text, "文"))
+                mFragments.add(FgtWithTitleBean(it, "文", R.drawable.text))
             }
 
 
@@ -109,9 +106,7 @@ class FgtMain : BaseMainFragment() {
                     .setActionName(ComponentImgAction.GetIntoClass)
                     .build().call()
                     .getDataItem<Class<FgtImg>>("cls")?.let {
-                mFragments.add(FgtWithTitleBean(it.newInstance(),"图"))
-                mBottomBar!!
-                        .addItem(BottomBarTab(_mActivity, R.drawable.img, "图"))
+                mFragments.add(FgtWithTitleBean(it.newInstance(), "图", R.drawable.img))
             }
 
 
@@ -119,9 +114,7 @@ class FgtMain : BaseMainFragment() {
                     .setActionName(ComponentVideoAction.GetIntoClass)
                     .build().call()
                     .getDataItem<Class<FgtImg>>("cls")?.let {
-                mFragments.add(FgtWithTitleBean(it.newInstance(),"视"))
-                mBottomBar!!
-                        .addItem(BottomBarTab(_mActivity, R.drawable.video, "视"))
+                mFragments.add(FgtWithTitleBean(it.newInstance(), "视", R.drawable.video))
             }
 
 
@@ -129,9 +122,7 @@ class FgtMain : BaseMainFragment() {
                     .setActionName(ComponentTextAction.GetIntoClass)
                     .build().call()
                     .getDataItem<Class<FgtImg>>("cls")?.let {
-                mFragments.add(FgtWithTitleBean(it.newInstance(),"文"))
-                mBottomBar!!
-                        .addItem(BottomBarTab(_mActivity, R.drawable.text, "文"))
+                mFragments.add(FgtWithTitleBean(it.newInstance(), "文", R.drawable.text))
             }
 
 
@@ -158,7 +149,7 @@ class FgtMain : BaseMainFragment() {
                 showHideFragment(mFragments[position].fgt, mFragments[prePosition].fgt)
 
                 tvTitle.text = mFragments[position].title
-                
+
                 //                BottomBarTab tab = mBottomBar.getItem(FIRST);
                 //                if (position == FIRST) {
                 //                    tab.setUnreadCount(0);
