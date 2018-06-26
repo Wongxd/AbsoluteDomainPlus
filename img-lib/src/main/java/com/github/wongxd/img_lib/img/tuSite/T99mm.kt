@@ -1,15 +1,18 @@
 package com.github.wongxd.img_lib.img.tuSite
 
 import android.text.TextUtils
-import com.lzy.okgo.OkGo
 import com.github.wongxd.core_lib.RequestState
 import com.github.wongxd.img_lib.data.bean.ImgTypeBean
 import com.github.wongxd.img_lib.data.bean.TuListBean
 import com.github.wongxd.img_lib.img.BaseTuSite
 import com.github.wongxd.img_lib.img.SeePicViewModel
 import com.github.wongxd.img_lib.img.TuViewModel
+import com.lzy.okgo.OkGo
+import com.orhanobut.logger.Logger
 import org.jsoup.Jsoup
+import java.net.URL
 import java.util.*
+
 
 /**
  * Created by wongxd on 2018/2/5.
@@ -59,17 +62,30 @@ class T99mm : BaseTuSite {
         var info = ""
         var state = 0
         try {
-            val request = OkGo.get<String>(originUrl)
-            val res = request.execute()
-            if (res.isSuccessful) {
-                res.body()?.string()?.let {
-                    list.addAll(parse99MmList(it))
-                    state = list.size
-                }
-            } else {
-                info = ""
-                state = 0
-            }
+//            val request = OkGo.get<String>(originUrl)
+//            val res = request.execute()
+//            if (res.isSuccessful) {
+//                res.body()?.string()?.let {
+//                    Logger.e(it)
+//                    list.addAll(parse99MmList(it))
+//                    state = list.size
+//                }
+//            } else {
+//                info = ""
+//                state = 0
+//            }
+
+            val u =  URL(url)
+            val referer = u.getProtocol() + "://" + u.getHost()
+            val doc = Jsoup.connect(url)
+                    .userAgent("Mozilla/5.0 (X11; U; Linux i686; zh-CN; rv:1.9.1.2) Gecko/20090803")
+                    .header("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2")
+                    .timeout(20000)
+                    .ignoreContentType(true).referrer(referer)
+                    .get()
+            Logger.e(doc.toString())
+            list.addAll(parse99MmList(doc.toString()))
+            state = list.size
 
         } catch (e: Exception) {
             info = e.message ?: ""
@@ -116,7 +132,7 @@ class T99mm : BaseTuSite {
             val res = request.execute()
             if (res.isSuccessful) {
                 res.body()?.string()?.let {
-//                    Logger.e("id---$currentId---" + it)
+                    //                    Logger.e("id---$currentId---" + it)
                     val tags = it.split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
                     tags.indices.mapTo(urls) {
                         imgUrl.replace("small/", "")
@@ -160,7 +176,7 @@ class T99mm : BaseTuSite {
             val date = li.selectFirst("em").text()
 
             val mm99 = TuListBean(title, preview, "$idStr-/$preview", date)
-//            Logger.e("$title---$imgUrl---$idStr---")
+            Logger.e("$title---$preview---$idStr---")
             mm99List.add(mm99)
         }
 

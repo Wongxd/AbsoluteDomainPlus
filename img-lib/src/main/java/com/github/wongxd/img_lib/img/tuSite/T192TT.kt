@@ -7,6 +7,7 @@ import com.github.wongxd.img_lib.data.bean.TuListBean
 import com.github.wongxd.img_lib.img.BaseTuSite
 import com.github.wongxd.img_lib.img.SeePicViewModel
 import com.github.wongxd.img_lib.img.TuViewModel
+import com.orhanobut.logger.Logger
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.net.SocketTimeoutException
@@ -22,17 +23,20 @@ class T192TT : BaseTuSite {
         if (TextUtils.isEmpty(orgUrl)) return null
         var url = orgUrl
         var tagUrl = ""
-        if (url.contains("_1.html")) {
-            url = url.replace("_1.html", ".html")
-            tagUrl = url.replace("http://www.192tt.com", "").replace(".html", "")
-        }
 
-        if (!url.contains("192tt")) {
-            tagUrl = url.replace(".html", "")
-            url = "http://www.192tt.com" + url
-        } else {
-            tagUrl = url.replace(".html", "").replace("http://www.192tt.com", "")
-        }
+        url = url.replace("_1.html", ".html")
+                .replace("_1.html#p", ".html")
+        tagUrl = url.replace("https://www.192tt.com", "")
+                .replace("http://www.192tt.com", "")
+                .replace("_1.html#p", "")
+                .replace(".html", "")
+
+
+
+        url = url.replace(".html", ".html#p")
+
+        Logger.e("tag--" + tagUrl)
+        Logger.e(url)
 
         val requestType = if (page == 1) RequestState.REFRESH else RequestState.LOADMORE
 
@@ -72,7 +76,8 @@ class T192TT : BaseTuSite {
             tViewModel.changeGetListState(requestType, if (e is SocketTimeoutException) {
                 "是不是网络出问题了呢"
             } else {
-                if (page != 1) setCache(url, tViewModel.picTotalList.value)
+                if (page != 1 && tViewModel.picTotalList.value?.size ?: 0 > 2)
+                    setCache(url, tViewModel.picTotalList.value)
                 "可能没有下一页了哦"
             }, 0)
         }
@@ -84,7 +89,8 @@ class T192TT : BaseTuSite {
      * 192tt 递归调用 爬取
      */
     fun get192TTDeep(tagUrl: String, page: Int, urls: ArrayList<String>) {
-        val url = "http://www.192tt.com" + tagUrl + "_$page.html"
+        val url = "https://www.192tt.com" + tagUrl + "_$page.html#p"
+        Logger.e("递归调用url--$url")
         val doc = Jsoup.parse(URL(url).readText())
         val imgUrl = doc.select("#p > center > img").first().attr("lazysrc")
         urls.add(imgUrl)
@@ -100,18 +106,35 @@ class T192TT : BaseTuSite {
         var originUrl = url
         var suffix = ""
 
+        var info = ""
+        var state = 0
+
         if (page != 1) {
+            if (originUrl.contains(".com/new/")) {
+                info = "最新分类只有一页噢"
+                tViewModel.changeGetListState(if (page == 1) RequestState.REFRESH else RequestState.LOADMORE, info, state)
+                return mutableListOf()
+            }
             suffix = "index_$page.html"
         }
         originUrl += suffix
 
         val list: MutableList<TuListBean> = ArrayList()
-        var info = ""
-        var state = 0
+
         try {
             val s = URL(originUrl).readText()
 
-            val select = Jsoup.parse(s).select("body > div.mainer > div.piclist > ul > li")
+            val u = URL(originUrl)
+            val referer = u.getProtocol() + "://" + u.getHost()
+            val doc = Jsoup.connect(originUrl)
+                    .userAgent("Mozilla/5.0 (X11; U; Linux i686; zh-CN; rv:1.9.1.2) Gecko/20090803")
+                    .header("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2")
+                    .timeout(20000)
+                    .ignoreContentType(true).referrer(referer)
+                    .get()
+            Logger.e(doc.toString())
+
+            val select = doc.select("body > div.mainer > div.piclist > ul > li")
             for (element in select) {
                 val preview = element.select("a > img").attr("lazysrc")
 

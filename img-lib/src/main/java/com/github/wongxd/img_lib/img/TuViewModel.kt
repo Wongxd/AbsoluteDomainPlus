@@ -9,7 +9,10 @@ import com.github.wongxd.core_lib.util.SPUtils
 import com.github.wongxd.img_lib.data.bean.ImgSiteBean
 import com.github.wongxd.img_lib.data.bean.ImgTypeBean
 import com.github.wongxd.img_lib.data.bean.TuListBean
-import com.github.wongxd.img_lib.img.tuSite.*
+import com.github.wongxd.img_lib.img.tuSite.Gank
+import com.github.wongxd.img_lib.img.tuSite.KeKe123
+import com.github.wongxd.img_lib.img.tuSite.MZiTu
+import com.github.wongxd.img_lib.img.tuSite.T192TT
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -41,9 +44,9 @@ class TuViewModel : ViewModel() {
         val siteList = ArrayList<ImgSiteBean>()
 
         siteList.add(ImgSiteBean(MZiTu::class.java.simpleName, MZiTu::class.java))
-        siteList.add(ImgSiteBean(T99mm::class.java.simpleName, T99mm::class.java))
+//        siteList.add(ImgSiteBean(T99mm::class.java.simpleName, T99mm::class.java))
         siteList.add(ImgSiteBean(Gank::class.java.simpleName, Gank::class.java))
-        siteList.add(ImgSiteBean(Jdlingyu::class.java.simpleName, Jdlingyu::class.java))
+//        siteList.add(ImgSiteBean(Jdlingyu::class.java.simpleName, Jdlingyu::class.java))
         siteList.add(ImgSiteBean(T192TT::class.java.simpleName, T192TT::class.java))
         siteList.add(ImgSiteBean(KeKe123::class.java.simpleName, KeKe123::class.java))
 

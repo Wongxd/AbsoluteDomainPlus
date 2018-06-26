@@ -2,11 +2,13 @@ package com.github.wongxd.img_lib.img.tuSite
 
 import android.text.TextUtils
 import com.github.wongxd.core_lib.RequestState
+import com.github.wongxd.core_lib.base.kotin.extension.getUTF8BytesFromGBKString
 import com.github.wongxd.img_lib.data.bean.ImgTypeBean
 import com.github.wongxd.img_lib.data.bean.TuListBean
 import com.github.wongxd.img_lib.img.BaseTuSite
 import com.github.wongxd.img_lib.img.SeePicViewModel
 import com.github.wongxd.img_lib.img.TuViewModel
+import com.orhanobut.logger.Logger
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.net.SocketTimeoutException
@@ -97,8 +99,20 @@ class KeKe123 : BaseTuSite {
             val s = URL(originUrl).readText(charset("GBK"))
 
             val doc = Jsoup.parse(s)
+//            val u = URL(originUrl)
+//            val referer = u.getProtocol() + "://" + u.getHost()
+//            val doc = Jsoup.connect(originUrl)
+//                    .userAgent("Mozilla/5.0 (X11; U; Linux i686; zh-CN; rv:1.9.1.2) Gecko/20090803")
+//                    .header("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2")
+//                    .timeout(20000)
+//                    .postDataCharset("GBK")
+//                    .ignoreContentType(true).referrer(referer)
+//                    .get()
+
+            Logger.e(doc.toString())
             val ul = doc.getElementById("msy")
             val lis = ul.getElementsByTag("div")
+            Logger.e(lis.toString())
             var isFirst = true
             for (element in lis) {
                 try {
@@ -110,13 +124,13 @@ class KeKe123 : BaseTuSite {
                             ?: ""
                     val a = element.getElementsByClass("title").first().getElementsByTag("a").first()
 
-                    val title = a.attr("title")
+                    val title = a.attr("title").getUTF8BytesFromGBKString()
 
                     val imgUrl = a.attr("href")
 
                     val date = ""
 
-//                Logger.e("$preview    $title  $imgUrl  $date  $view")
+                    Logger.e("$preview    $title  $imgUrl  $date ")
                     list.add(TuListBean(title, preview, imgUrl, date))
                 } catch (e: Exception) {
                     continue
@@ -138,6 +152,7 @@ class KeKe123 : BaseTuSite {
 
 
     }
+
 
     /**
      * 获取对应页面的真实的页面地址
@@ -173,7 +188,7 @@ class KeKe123 : BaseTuSite {
 
     companion object {
         val typeList = arrayListOf(
-                ImgTypeBean("http://www.keke123.cc/", "最新"),
+                ImgTypeBean("https://www.keke1234.cc/gaoqing/list_5_1.html", "最新"),
                 ImgTypeBean("http://www.keke123.cc/gaoqing/cn/list_1_1.html", "国产"),
                 ImgTypeBean("http://www.keke123.cc/gaoqing/rihan/list_2_1.html", "日韩"),
                 ImgTypeBean("http://www.keke123.cc/gaoqing/oumei/list_3_1.html", "欧美")
