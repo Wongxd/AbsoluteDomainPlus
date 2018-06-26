@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://E:\Wwork\as\Domain\AbsoluteDomainPlus.iml" filepath="E:\Wwork\as\Domain\AbsoluteDomainPlus.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/absoluteDomainPlus.iml" filepath="$PROJECT_DIR$/.idea/modules/absoluteDomainPlus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AbsoluteDomainPlus.iml" filepath="$PROJECT_DIR$/AbsoluteDomainPlus.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-lib/core-lib.iml" filepath="$PROJECT_DIR$/core-lib/core-lib.iml" />
-      <module fileurl="file://E:\Wwork\as\absoluteDomainPlus\core-lib\corelib.iml" filepath="E:\Wwork\as\absoluteDomainPlus\core-lib\corelib.iml" />
       <module fileurl="file://$PROJECT_DIR$/img-lib/img-lib.iml" filepath="$PROJECT_DIR$/img-lib/img-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/text-lib/text-lib.iml" filepath="$PROJECT_DIR$/text-lib/text-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/video-lib/video-lib.iml" filepath="$PROJECT_DIR$/video-lib/video-lib.iml" />

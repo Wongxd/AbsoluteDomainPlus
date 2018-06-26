@@ -46,17 +46,21 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
-        <activity android:name=".SplashActivity">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
+            android:theme="@style/MainActivityTheme"
+            android:screenOrientation="portrait"
             android:name=".AtyMain"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:launchMode="singleTask" />
+
         <!--android:taskAffinity="com.wongxd.absolutedomain.base.utils.utilcode.util.PermissionUtils$PermissionActivity"-->
         <activity
             android:name="com.github.wongxd.core_lib.base.utils.utilcode.util.PermissionUtils$PermissionActivity"
