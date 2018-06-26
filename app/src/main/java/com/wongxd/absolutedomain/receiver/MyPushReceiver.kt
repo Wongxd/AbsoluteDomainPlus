@@ -71,6 +71,7 @@ class MyPushReceiver : BroadcastReceiver() {
                         i.putExtra("content", content)
                         i.putExtra("extras", extras)
                         i.putExtra("notificationId", 0)
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
                         it.startActivity(i)
                     }
