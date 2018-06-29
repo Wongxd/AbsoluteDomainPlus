@@ -81,3 +81,20 @@ class ComponentTextAction {
     }
 
 }
+
+
+class ComponentNovelAction {
+    companion object {
+
+        val Into = "intoNovel"
+
+
+        /**
+         * 获取入口class
+         */
+        val GetIntoClass = "getIntoClass"
+
+        val GetFavoritClass = "getFavoriteClass"
+    }
+
+}

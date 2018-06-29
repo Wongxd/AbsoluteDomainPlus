@@ -50,6 +50,7 @@ import com.wongxd.absolutedomain.receiver.MyPushReceiver
 import com.wongxd.absolutedomain.ui.*
 import com.wongxd.absolutedomain.ui.login.FgtLogin
 import com.wongxd.absolutedomain.ui.user.FgtUser
+import com.zijie.treader.AtyBookList
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import kotlinx.android.synthetic.main.layout_w_toolbar.*
 import loadHeader
@@ -216,6 +217,10 @@ class AtyMain : BaseActivity() {
                 .withName(Menu.MENU_DOWNLOAD_MANAGER.title)
                 .withIcon(Menu.MENU_DOWNLOAD_MANAGER.icon).withSelectable(false)
 
+        val menuBookList = PrimaryDrawerItem().withIconTintingEnabled(true).withIdentifier(Menu.MENU_BOOK_LIST.id)
+                .withName(Menu.MENU_BOOK_LIST.title)
+                .withIcon(Menu.MENU_BOOK_LIST.icon).withSelectable(false)
+
         val menuDonate = PrimaryDrawerItem().withIconTintingEnabled(true).withIdentifier(Menu.MENU_DONATE.id)
                 .withName(Menu.MENU_DONATE.title)
                 .withIcon(Menu.MENU_DONATE.icon).withSelectable(false)
@@ -261,6 +266,7 @@ class AtyMain : BaseActivity() {
                 .addDrawerItems(
                         menuFavorateTu,
                         menuDownloadManager,
+                        menuBookList,
                         menuDonate,
                         menuAlipayRed,
                         DividerDrawerItem(),
@@ -280,6 +286,10 @@ class AtyMain : BaseActivity() {
                             Menu.MENU_DOWNLOAD_MANAGER.id -> {
                                 tv_left?.let { start(FgtDownload.newInstance(TaskType.IMG)) }
                                 drawer.closeDrawer()
+                            }
+
+                            Menu.MENU_BOOK_LIST.id -> {
+                                startActivity(Intent(this@AtyMain, AtyBookList::class.java))
                             }
 
                             Menu.MENU_DONATE.id -> {

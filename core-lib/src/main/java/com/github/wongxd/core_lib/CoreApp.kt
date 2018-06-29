@@ -1,6 +1,5 @@
 package com.github.wongxd.core_lib
 
-import android.app.Application
 import cn.bmob.v3.Bmob
 import com.billy.cc.core.component.CC
 import com.github.wongxd.core_lib.base.utils.utilcode.util.Utils
@@ -14,6 +13,7 @@ import com.lzy.okgo.OkGo
 import com.lzy.okgo.cache.CacheMode
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
+import com.zijie.treader.AppContext
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
@@ -21,7 +21,7 @@ import kotlin.properties.Delegates
 /**
  * Created by wongxd on 2018/3/2.
  */
-open class CoreApp : Application() {
+open class CoreApp : AppContext() {
 
     companion object {
         //这里我就不写管理类了,捡个懒,直接在 Application 中管理单例 Okhttp

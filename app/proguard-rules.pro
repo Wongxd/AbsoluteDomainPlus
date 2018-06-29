@@ -81,6 +81,25 @@ public *** is*();
 #}
 
 
+#litepal
+-keep class org.litepal.** {
+    *;
+}
+
+-keep class * extends org.litepal.crud.DataSupport {
+    *;
+}
+
+-keep class * extends org.litepal.crud.LitePalSupport {
+    *;
+}
+
+#treader 如风阅读
+-keep class com.zijie.treader.**{
+    *;
+}
+
+
 # glide
   -keep public class * implements com.bumptech.glide.module.GlideModule
     -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {

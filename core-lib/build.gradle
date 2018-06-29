@@ -2,6 +2,7 @@ apply from: 'https://raw.githubusercontent.com/luckybilly/CC/master/cc-settings.
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'//kapt3插件
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -116,6 +117,9 @@ dependencies {
     // Your EventBus"s version
     api "org.greenrobot:eventbus:$rootProject.eventbusVersion"
 
+    api 'org.greenrobot:greendao:3.2.2'
+
     api files('../libs/lm_imageLoader.jar')
     api files('../libs/luomi_7.2_ok.jar')
+    api project(path: ':readerlib')
 }

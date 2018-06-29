@@ -10,6 +10,7 @@ enum class Menu(val icon: Int, private val titleRes: Int) {
 
     MENU_TU_FAVORITE(R.drawable.menu_tu_favorit, R.string.menu_favorite),
     MENU_DOWNLOAD_MANAGER(R.drawable.menu_download, R.string.menu_download_manager),
+    MENU_BOOK_LIST(R.drawable.menu_book_list, R.string.menu_book_list),
     MENU_ALIPAY_RED(R.drawable.menu_alipay, R.string.menu_alipay_red),
     MENU_DONATE(R.drawable.menu_donate, R.string.menu_donate),
 
