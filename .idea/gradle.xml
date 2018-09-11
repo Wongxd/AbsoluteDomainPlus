@@ -10,9 +10,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core-lib" />
+            <option value="$PROJECT_DIR$/crash-lib" />
             <option value="$PROJECT_DIR$/img-lib" />
             <option value="$PROJECT_DIR$/novel-lib" />
-            <option value="$PROJECT_DIR$/readerlib" />
+            <option value="$PROJECT_DIR$/reader-lib" />
             <option value="$PROJECT_DIR$/text-lib" />
             <option value="$PROJECT_DIR$/video-lib" />
           </set>

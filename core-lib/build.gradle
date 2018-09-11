@@ -121,5 +121,5 @@ dependencies {
 
     api files('../libs/lm_imageLoader.jar')
     api files('../libs/luomi_7.2_ok.jar')
-    api project(path: ':readerlib')
+    api project(path: ':reader-lib')
 }

@@ -10,7 +10,6 @@ import com.github.wongxd.core_lib.ComponentAppAction
 import com.github.wongxd.core_lib.fragmenaction.MainTabFragment
 import com.github.wongxd.text_lib.R
 import com.github.wongxd.text_lib.data.bean.TextSiteBean
-import com.github.wongxd.text_lib.text.textSite.One
 import com.github.wongxd.text_lib.text.textSite.OneArticle
 import kotlinx.android.synthetic.main.fgt_text.*
 import me.yokeyword.fragmentation.SupportFragment
@@ -35,8 +34,8 @@ class FgtText : MainTabFragment() {
 
     override fun initView(mView: View?) {
 
-        val vpItems = listOf(TextSiteBean("OneArticle", FgtTextItem.newInstance(OneArticle::class.java)),
-                TextSiteBean("ONE·一个", FgtTextItem.newInstance(One::class.java))
+        val vpItems = listOf(TextSiteBean("OneArticle", FgtTextItem.newInstance(OneArticle::class.java))
+//                , TextSiteBean("ONE·一个", FgtTextItem.newInstance(One::class.java))
 
         )
 

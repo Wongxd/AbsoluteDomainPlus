@@ -5,9 +5,10 @@
       <module fileurl="file://$PROJECT_DIR$/AbsoluteDomainPlus.iml" filepath="$PROJECT_DIR$/AbsoluteDomainPlus.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-lib/core-lib.iml" filepath="$PROJECT_DIR$/core-lib/core-lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crash-lib/crash-lib.iml" filepath="$PROJECT_DIR$/crash-lib/crash-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/img-lib/img-lib.iml" filepath="$PROJECT_DIR$/img-lib/img-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/novel-lib/novel-lib.iml" filepath="$PROJECT_DIR$/novel-lib/novel-lib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/readerlib/readerlib.iml" filepath="$PROJECT_DIR$/readerlib/readerlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/reader-lib/reader-lib.iml" filepath="$PROJECT_DIR$/reader-lib/reader-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/text-lib/text-lib.iml" filepath="$PROJECT_DIR$/text-lib/text-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/video-lib/video-lib.iml" filepath="$PROJECT_DIR$/video-lib/video-lib.iml" />
     </modules>

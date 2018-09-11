@@ -1,1 +1,1 @@
-include ':app', ':core-lib', ':img-lib', ':video-lib', ':text-lib', ':novel-lib', ':readerlib'
+include ':app', ':core-lib', ':img-lib', ':video-lib', ':text-lib', ':novel-lib', ':reader-lib', ':crash-lib'

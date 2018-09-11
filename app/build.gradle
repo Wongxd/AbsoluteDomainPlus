@@ -119,6 +119,7 @@ dependencies {
     implementation files('../libs/luomi_7.2_ok.jar')
     implementation project(':core-lib')
     implementation project(':img-lib')
-    implementation project(':text-lib')
     implementation project(':video-lib')
+    implementation project(':text-lib')
+    implementation project(':reader-lib')
 }

@@ -1,12 +1,11 @@
 package com.github.wongxd.text_lib.text.textSite
 
-import com.github.wongxd.core_lib.data.net.WNet
-import com.github.wongxd.text_lib.text.BaseTextSite
+import android.util.Log
 import com.github.wongxd.core_lib.data.bean.text.EssayContentBean
-import com.github.wongxd.core_lib.data.bean.text.EssayListBean
+import com.github.wongxd.core_lib.data.net.WNet
 import com.github.wongxd.text_lib.data.bean.TextListBean
+import com.github.wongxd.text_lib.text.BaseTextSite
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.util.*
@@ -72,19 +71,19 @@ class One : BaseTextSite {
         doAsync {
 
             WNet.getTextList(url, successed = {
-
+                Log.e("wongxd",it)
                 val list: MutableList<TextListBean> = ArrayList()
-                val essayList: EssayListBean = Gson().fromJson(it, object : TypeToken<EssayListBean>() {}.type)
-                essayList.data.forEach {
-                    val title ="${it.hp_title}---${it.hp_makettime}"
-                    val sb = StringBuilder()
-                    it.author.forEach { sb.append(it.user_name + "-") }
-                    val author: String = sb.toString()
-                    val preview = it.guide_word
-                    val textId = it.content_id
-
-                    list.add(TextListBean(title, author, preview,textId=textId))
-                }
+//                val essayList: EssayListBean = Gson().fromJson(it, object : TypeToken<EssayListBean>() {}.type)
+//                essayList.data.forEach {
+//                    val title ="${it.hp_title}---${it.hp_makettime}"
+//                    val sb = StringBuilder()
+//                    it.author.forEach { sb.append(it.user_name + "-") }
+//                    val author: String = sb.toString()
+//                    val preview = it.guide_word
+//                    val textId = it.content_id
+//
+//                    list.add(TextListBean(title, author, preview,textId=textId))
+//                }
 
                 uiThread { succeeded.invoke(list) }
             }, failed = {
