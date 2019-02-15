@@ -9,11 +9,17 @@ import com.github.wongxd.core_lib.base.kotin.permission.PermissionType
 import com.github.wongxd.core_lib.base.kotin.permission.getPermission
 import com.github.wongxd.core_lib.base.utils.utilcode.util.ScreenUtils
 import com.github.wongxd.core_lib.util.SPUtils
+import com.github.wongxd.core_lib.util.TU
 import com.luomi.lm.ad.ADType
 import com.luomi.lm.ad.DRAgent
 import com.luomi.lm.ad.IAdSuccessBack
 import com.luomi.lm.ad.LogUtil
+import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.aty_splash.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
+import org.json.JSONObject
+import java.net.URL
 
 /**
  * Created by wongxd on 2018/1/3.
@@ -71,9 +77,27 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun intoAtyMain() {
-        startActivity(Intent(this@SplashActivity, AtyMain::class.java))
-        overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out)
-        finish()
+
+        doAsync {
+            val text = URL("https://raw.githubusercontent.com/Wongxd/AbsoluteDomainPlus/master/versionHolder/version").readText()
+            //{"is":false,version:"1.0.0",data:{"title":"版本更新","content":"内容描述","extras":{"url":"http://wongxd.github.io"}}}
+            val json = JSONObject(text)
+            val bool = json.optBoolean("is", false)
+
+            uiThread {
+
+                if (bool)
+                    startActivity(Intent(this@SplashActivity, AtyMain::class.java))
+                else
+                    startActivity(Intent(this@SplashActivity, AtyMain::class.java))
+
+                overridePendingTransition(R.anim.screen_zoom_in, R.anim.screen_zoom_out)
+                finish()
+            }
+
+        }
+
+
     }
 
 }

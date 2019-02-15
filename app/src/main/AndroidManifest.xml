@@ -27,6 +27,10 @@
 
     <uses-permission android:name="android.permission.READ_LOGS" />
 
+    <meta-data
+        android:name="android.max_aspect"
+        android:value="ratio_float" />
+
     <application
         android:name=".App"
         android:allowBackup="true"

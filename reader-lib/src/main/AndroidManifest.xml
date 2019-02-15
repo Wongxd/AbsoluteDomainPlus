@@ -26,6 +26,10 @@
         android:resizeable="true"
         android:smallScreens="true" />
 
+    <meta-data
+        android:name="android.max_aspect"
+        android:value="ratio_float" />
+
     <application
         android:allowBackup="true"
         android:supportsRtl="true">

@@ -87,9 +87,8 @@ dependencies {
     api "com.github.bumptech.glide:glide:4.5.0"
     kapt "com.github.bumptech.glide:compiler:4.5.0"//kotlin"中使用注解,生成GlideAPP
     api "com.github.bumptech.glide:okhttp3-integration:4.5.0"
-    api("com.mikepenz:materialdrawer:6.0.2@aar") {
-        transitive = true
-    }
+
+
     api "com.tapadoo.android:alerter:$rootProject.alerterVersion"
     api "cn.jzvd:jiaozivideoplayer:$rootProject.jiaozivideoplayerVersion"
 
@@ -122,4 +121,5 @@ dependencies {
     api files('../libs/lm_imageLoader.jar')
     api files('../libs/luomi_7.2_ok.jar')
     api project(path: ':reader-lib')
+    api project(path: ':material-drawer')
 }

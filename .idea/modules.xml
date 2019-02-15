@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/core-lib/core-lib.iml" filepath="$PROJECT_DIR$/core-lib/core-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/crash-lib/crash-lib.iml" filepath="$PROJECT_DIR$/crash-lib/crash-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/img-lib/img-lib.iml" filepath="$PROJECT_DIR$/img-lib/img-lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/material-drawer/material-drawer.iml" filepath="$PROJECT_DIR$/material-drawer/material-drawer.iml" />
       <module fileurl="file://$PROJECT_DIR$/novel-lib/novel-lib.iml" filepath="$PROJECT_DIR$/novel-lib/novel-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/reader-lib/reader-lib.iml" filepath="$PROJECT_DIR$/reader-lib/reader-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/text-lib/text-lib.iml" filepath="$PROJECT_DIR$/text-lib/text-lib.iml" />

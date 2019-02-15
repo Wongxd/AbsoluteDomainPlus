@@ -5,12 +5,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'//kapt3插件
 
-//apply plugin: 'bugly'
+apply plugin: 'bugly'
 
-//bugly {
-//    appId = "1c3475b0ab"
-//    appKey = "5dada85b-fa95-4104-a792-9149a2d11571"
-//}
+bugly {
+    appId = "1c3475b0ab"
+    appKey = "5dada85b-fa95-4104-a792-9149a2d11571"
+}
 
 android {
     compileSdkVersion 27
@@ -29,17 +29,17 @@ android {
         signingConfigs {
             //在这里配置相关的签名信息
             keyStore {
-                storeFile file("../../../wongxd.jks")
-                storePassword ""
+                storeFile file("../../wongxd.jks")
+                storePassword "wxd258032"
                 keyAlias "wongxd"
-                keyPassword ""
+                keyPassword "wxd258032"
             }
         }
 
         //极光推送
         ndk {
             //选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi', 'x86' //, 'armeabi-v7a', 'arm64-v8a'
+            abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'arm64-v8a'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
 
@@ -54,14 +54,14 @@ android {
 
     buildTypes {
         release {
-            shrinkResources true
-            minifyEnabled true
-            zipAlignEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro',
-                    '../core-lib/proguard-rules.pro',
-                    '../img-lib/proguard-rules.pro',
-                    '../text-lib/proguard-rules.pro',
-                    '../video-lib/proguard-rules.pro'
+//            shrinkResources true
+//            minifyEnabled true
+//            zipAlignEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro',
+//                    '../core-lib/proguard-rules.pro',
+//                    '../img-lib/proguard-rules.pro',
+//                    '../text-lib/proguard-rules.pro',
+//                    '../video-lib/proguard-rules.pro'
             // 不显示Log
             buildConfigField "boolean", "LOG_DEBUG", "false"
         }
@@ -69,7 +69,7 @@ android {
             // 显示Log
             buildConfigField "boolean", "LOG_DEBUG", "true"
             //设置签名文件
-//            signingConfig signingConfigs.keyStore //设置签名文件
+            signingConfig signingConfigs.keyStore //设置签名文件
         }
     }
 
@@ -102,9 +102,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.support:multidex:1.0.2'
     //bugly
-    //    implementation "com.tencent.bugly:crashreport:latest.release"
+    implementation "com.tencent.bugly:crashreport:latest.release"
     //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
-    //    implementation "com.tencent.bugly:nativecrashreport:latest.release"
+    implementation "com.tencent.bugly:nativecrashreport:latest.release"
     //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
 
 

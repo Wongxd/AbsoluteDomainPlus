@@ -70,12 +70,25 @@ public class PageWidget extends View {
         mAnimationProvider = new SimulationAnimation(mCurPageBitmap,mNextPageBitmap,mScreenWidth,mScreenHeight);
     }
 
+    //获取状态栏高度
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = this.getResources()
+                .getIdentifier("status_bar_height", "dimen", "android");
+
+        if (resourceId > 0) {
+            result = this.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
     private void initPage(){
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics metric = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(metric);
         mScreenWidth = metric.widthPixels;
-        mScreenHeight = metric.heightPixels;
+        mScreenHeight = metric.heightPixels + getStatusBarHeight();
+        Log.e("wongxd",mScreenHeight+"  height");
         mCurPageBitmap = Bitmap.createBitmap(mScreenWidth, mScreenHeight, Bitmap.Config.RGB_565);      //android:LargeHeap=true  use in  manifest application
         mNextPageBitmap = Bitmap.createBitmap(mScreenWidth, mScreenHeight, Bitmap.Config.RGB_565);
     }

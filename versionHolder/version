@@ -1,4 +1,5 @@
 {
+    "is":false,
     "data": {
         "content": "*图集修复\n*兼容8.0\n*其它",
         "extras": {
