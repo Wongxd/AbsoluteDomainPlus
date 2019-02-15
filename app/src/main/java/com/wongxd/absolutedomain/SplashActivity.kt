@@ -15,6 +15,7 @@ import com.luomi.lm.ad.DRAgent
 import com.luomi.lm.ad.IAdSuccessBack
 import com.luomi.lm.ad.LogUtil
 import com.orhanobut.logger.Logger
+import com.tencent.bugly.crashreport.CrashReport
 import kotlinx.android.synthetic.main.aty_splash.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -81,8 +82,8 @@ class SplashActivity : AppCompatActivity() {
         doAsync {
             val text = URL("https://raw.githubusercontent.com/Wongxd/AbsoluteDomainPlus/master/versionHolder/version").readText()
             //{"is":false,version:"1.0.0",data:{"title":"版本更新","content":"内容描述","extras":{"url":"http://wongxd.github.io"}}}
-            val json = JSONObject(text)
-            val bool = json.optBoolean("is", false)
+            val json: JSONObject? = JSONObject(text)
+            val bool = json?.optBoolean("is", false) ?: false
 
             uiThread {
 

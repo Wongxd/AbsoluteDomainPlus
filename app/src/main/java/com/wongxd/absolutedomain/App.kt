@@ -11,6 +11,7 @@ import com.luomi.lm.ad.DRAgent
 import com.luomi.lm.ad.LogUtil
 import com.orhanobut.logger.LogLevel
 import com.orhanobut.logger.Logger
+import com.tencent.bugly.crashreport.CrashReport
 import java.io.BufferedReader
 import java.io.FileReader
 import java.io.IOException
@@ -72,13 +73,13 @@ class App : CoreApp() {
         //bugly
         // 获取当前进程名
 //        val processName = getProcessName(android.os.Process.myPid())
-        // 设置是否为上报进程
-//        val strategy = UserStrategy(this)
+//        // 设置是否为上报进程
+//        val strategy = CrashReport.UserStrategy(this)
 //        strategy.isUploadProcess = processName.isBlank() || processName == packageName
-
+//
 //        CrashReport.initCrashReport(applicationContext, BUGLY_APP_ID, BuildConfig.LOG_DEBUG,strategy)
 
-//        CrashReport.initCrashReport(applicationContext, BUGLY_APP_ID, BuildConfig.LOG_DEBUG)
+        CrashReport.initCrashReport(applicationContext, BUGLY_APP_ID, false)
 
         if (BuildConfig.LOG_DEBUG) {
             Logger.init().logLevel(LogLevel.FULL)

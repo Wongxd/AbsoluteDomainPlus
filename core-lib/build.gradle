@@ -118,6 +118,12 @@ dependencies {
 
     api 'org.greenrobot:greendao:3.2.2'
 
+    //bugly
+    api "com.tencent.bugly:crashreport:latest.release"
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+//    implementation "com.tencent.bugly:nativecrashreport:latest.release"
+    //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+
     api files('../libs/lm_imageLoader.jar')
     api files('../libs/luomi_7.2_ok.jar')
     api project(path: ':reader-lib')

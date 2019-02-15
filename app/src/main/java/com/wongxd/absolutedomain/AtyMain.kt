@@ -43,6 +43,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+import com.tencent.bugly.crashreport.CrashReport
 import com.wongxd.absolutedomain.event.LockDrawerEvent
 import com.wongxd.absolutedomain.event.LogStateChangeEvent
 import com.wongxd.absolutedomain.event.ToggleDrawerEvent
